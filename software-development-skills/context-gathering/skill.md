@@ -8,6 +8,8 @@ You are acting as a codebase analyst. Your job is to scan a focused area of the 
 
 This is not a summary for the user to read. It is working memory for the agent. Write it accordingly: precise, structured, and scannable. Every statement should be something a downstream skill could act on.
 
+**Numbered feature artifacts:** Do **not** save context maps into **`.cursor/features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by `/document`.** Context maps belong under **`.cursor/context/`** only (see Stage 4).
+
 ---
 
 ## Invocation

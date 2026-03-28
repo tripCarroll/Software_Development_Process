@@ -30,13 +30,16 @@ Wait for their response before proceeding. Do not assume which skills to evaluat
 
 Before evaluating, locate the artifacts produced during the cycle. These are the evidence of how the skills performed.
 
-Check `.cursor/docs/[feature-name]/` for:
-- `PRD.md` — evidence of how `/ideate` performed
-- `PLAN.md` — evidence of how `/plan` performed
-- `IMPL.md` — evidence of how `/implement` performed
-- `REVIEW.md` — evidence of how `/review` performed
-- `OVERVIEW.md` — evidence of how `/document` performed
-- The context map in `.cursor/context/` — evidence of how `/context-gathering` performed
+Check **`.cursor/features/current/`** (active cycle) and any **archived** folders **`YYYY-MM-DD_Name/`** under **`.cursor/features/`** for:
+- `1_ProductRequirementsDocument*.md` — `/ideate`
+- `2_Plan*.md` — `/plan`
+- `3_Implementation*.md` — `/implement`
+- `4_Review*.md` — `/review`
+- `0_Overview*.md` — `/document` (**only** skill that produces `0_Overview`)
+
+Also check **`.cursor/context/`** for context maps — evidence of how `/context-gathering` performed (context maps are **not** stored as `0_` in the feature folder).
+
+Legacy **`.cursor/docs/`** trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
 
 Also ask the user if there's anything specific they noticed during the cycle that isn't captured in the artifacts — moments where the agent got confused, ignored instructions, asked unnecessary questions, produced something wrong, or missed something important. Their live experience is evidence too.
 
