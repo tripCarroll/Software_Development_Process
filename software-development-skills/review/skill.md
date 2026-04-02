@@ -12,13 +12,13 @@ You are not here to approve work. You are here to find what could be better, wro
 
 ## Feature artifact root
 
-**Prefer inputs from disk:** `[workspace-root]/.cursor/features/current/`
+**Prefer inputs from disk:** `[workspace-root]/.features/current/`
 
 - **PRD:** `1_ProductRequirementsDocument*.md`
 - **Plan:** `2_Plan*.md`
 - **Implementation summary:** `3_Implementation*.md` (latest variant if multiple)
 
-After the review is complete (after Stage 5 sign-off block in chat), write the **full review report** to **`.cursor/features/current/4_Review.md`**, or the next free variant (`4_Review_a.md`, `_b`, …) if the base file already exists.
+After the review is complete (after Stage 5 sign-off block in chat), write the **full review report** to **`.features/current/4_Review.md`**, or the next free variant (`4_Review_a.md`, `_b`, …) if the base file already exists.
 
 If **`current/`** is missing, instruct the user to run **`/initialize`** before saving the report.
 
@@ -29,7 +29,7 @@ If **`current/`** is missing, instruct the user to run **`/initialize`** before 
 This skill is designed to run in a **fresh conversation** — a new Cursor chat with no prior context from the ideation or implementation session. This is intentional. A cold read produces a better review.
 
 To use it, open a new chat and provide:
-1. The PRD (paste contents or path under **`.cursor/features/current/1_ProductRequirementsDocument*.md`**)
+1. The PRD (paste contents or path under **`.features/current/1_ProductRequirementsDocument*.md`**)
 2. The implementation plan (paste or **`2_Plan*.md`**)
 3. The implementation summary (paste or **`3_Implementation*.md`**)
 4. The code to review (paste the diff, or reference the files/paths to examine)

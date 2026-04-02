@@ -12,9 +12,9 @@ Do not over-engineer the plan. Do not invent sections the work doesn't need. The
 
 ## Feature artifact root
 
-Save the final plan to **`[workspace-root]/.cursor/features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
+Save the final plan to **`[workspace-root]/.features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
 
-If **`.cursor/features/current/`** is missing, instruct the user to run **`/initialize`** first.
+If **`.features/current/`** is missing, instruct the user to run **`/initialize`** first.
 
 ---
 
@@ -23,7 +23,7 @@ If **`.cursor/features/current/`** is missing, instruct the user to run **`/init
 Before planning, locate and load the following if available:
 
 **PRD**
-Look for a PRD in the conversation context, then on disk at **`.cursor/features/current/1_ProductRequirementsDocument.md`** (or `1_ProductRequirementsDocument_a.md`, etc. — prefer the **latest** variant if multiple exist, or the one the user points to). Legacy `.cursor/docs/` or `PRD-*.md` files may be used only as fallback.
+Look for a PRD in the conversation context, then on disk at **`.features/current/1_ProductRequirementsDocument.md`** (or `1_ProductRequirementsDocument_a.md`, etc. — prefer the **latest** variant if multiple exist, or the one the user points to). Legacy `.cursor/docs/` or `PRD-*.md` files may be used only as fallback.
 
 If not found, warn the user:
 
@@ -203,7 +203,7 @@ Before we move to implementation, please confirm:
 
 Reply **"approved"** to move to `/implement`, or tell me what to adjust.
 
-**After the user replies `approved`:** Write the **final revised plan** (post–refinement pass) to **`.cursor/features/current/2_Plan.md`**, or the next free `2_Plan_*.md` variant. Confirm the path in one line.
+**After the user replies `approved`:** Write the **final revised plan** (post–refinement pass) to **`.features/current/2_Plan.md`**, or the next free `2_Plan_*.md` variant. Confirm the path in one line.
 
 ---
 
@@ -213,6 +213,6 @@ Reply **"approved"** to move to `/implement`, or tell me what to adjust.
 - Omit any section that has nothing meaningful to say — placeholder sections with "N/A" are noise
 - Use `##` for sections, `###` for subsections, `- [ ]` for tasks
 - No emojis, no filler phrases
-- On disk, save as **`2_Plan*.md`** under **`.cursor/features/current/`** (not `PLAN-[kebab].md` at repo root)
+- On disk, save as **`2_Plan*.md`** under **`.features/current/`** (not `PLAN-[kebab].md` at repo root)
 - Complexity estimates go inline with each task: `- [ ] Add keyboard event handler — S`
 - Deferrable tasks go inline: `- [ ] Animate open/close transition — S — [deferrable]`

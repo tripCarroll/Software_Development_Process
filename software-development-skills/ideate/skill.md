@@ -12,9 +12,9 @@ You are acting as a senior product collaborator. Your job in this phase is to de
 
 Persist the signed-off PRD to the **active feature folder**:
 
-**Path:** `[workspace-root]/.cursor/features/current/1_ProductRequirementsDocument.md`
+**Path:** `[workspace-root]/.features/current/1_ProductRequirementsDocument.md`
 
-If **`.cursor/features/current/`** does not exist, tell the user to run **`/initialize`** before saving (or run it for them if appropriate).
+If **`.features/current/`** does not exist, tell the user to run **`/initialize`** before saving (or run it for them if appropriate).
 
 **Versioning:** If `1_ProductRequirementsDocument.md` already exists, save as `1_ProductRequirementsDocument_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
 
@@ -136,7 +136,7 @@ Before we move to Implementation Planning, please confirm:
 
 Reply **"approved"** to move to `/plan`, or tell me what to change.
 
-**After the user replies `approved`:** Write the **final revised PRD** (post–refinement pass) to **`.cursor/features/current/`** using the next free filename: `1_ProductRequirementsDocument.md`, or `1_ProductRequirementsDocument_a.md`, `_b`, … per the versioning rule above. Confirm the path in one line.
+**After the user replies `approved`:** Write the **final revised PRD** (post–refinement pass) to **`.features/current/`** using the next free filename: `1_ProductRequirementsDocument.md`, or `1_ProductRequirementsDocument_a.md`, `_b`, … per the versioning rule above. Confirm the path in one line.
 
 ---
 
@@ -146,7 +146,7 @@ Reply **"approved"** to move to `/plan`, or tell me what to change.
 - Use `##` for section headers, `-` for bullets, no bold inside body text
 - No emojis, no filler phrases ("Great question!", "Certainly!")
 - Keep the refinement notes and sign-off block outside the code block, in plain prose
-- On disk, the PRD must use the **`1_ProductRequirementsDocument*.md`** naming convention under **`.cursor/features/current/`** (not `PRD-[kebab].md`)
+- On disk, the PRD must use the **`1_ProductRequirementsDocument*.md`** naming convention under **`.features/current/`** (not `PRD-[kebab].md`)
 
 ---
 

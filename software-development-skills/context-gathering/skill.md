@@ -8,7 +8,7 @@ You are acting as a codebase analyst. Your job is to scan a focused area of the 
 
 This is not a summary for the user to read. It is working memory for the agent. Write it accordingly: precise, structured, and scannable. Every statement should be something a downstream skill could act on.
 
-**Numbered feature artifacts:** Do **not** save context maps into **`.cursor/features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by `/document`.** Context maps belong under **`.cursor/context/`** only (see Stage 4).
+**Numbered feature artifacts:** Do **not** save context maps into **`.features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by `/document`.** Context maps belong under **`.features/`** only (see Stage 4).
 
 ---
 
@@ -144,14 +144,14 @@ The following context is now active for this session:
 Save the context map to:
 
 ```
-.cursor/context/context-map-[kebab-area-name].md
+.features/current/context-map-[kebab-area-name].md
 ```
 
-Create the `.cursor/context/` directory if it doesn't exist.
+Create the `.features/` directory if it doesn't exist.
 
 After saving, output a short confirmation in plain prose — not the full map again. Example:
 
-> Context map saved to `.cursor/context/context-map-button.md`.  
+> Context map saved to `.features/current/context-map-button.md`.  
 > Active context: Lit + TypeScript Web Components project. Button component follows a 4-file pattern with strict TypeScript and CSS custom property tokens. Shadow DOM encapsulation is a known constraint. Ready for `/ideate` or `/plan`.
 
 The full map is on disk. The confirmation is what loads into context — keep it dense and usable.

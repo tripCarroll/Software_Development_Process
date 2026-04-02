@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Execute an approved implementation plan, then record what was done in 3_Implementation.md under .cursor/features/current/.
+description: Execute an approved implementation plan, then record what was done in 3_Implementation.md under .features/current/.
 command: /implement
 ---
 
@@ -12,17 +12,17 @@ You are acting as an implementation agent. Your job is to carry out the approved
 
 After implementation is **complete** (or at a natural milestone the user approves), write:
 
-**Path:** `[workspace-root]/.cursor/features/current/3_Implementation.md`
+**Path:** `[workspace-root]/.features/current/3_Implementation.md`
 
 **Versioning:** If `3_Implementation.md` exists, use `3_Implementation_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
 
-If **`.cursor/features/current/`** does not exist, instruct the user to run **`/initialize`** before saving.
+If **`.features/current/`** does not exist, instruct the user to run **`/initialize`** before saving.
 
 ---
 
 ## Stage 1 — Gather inputs
 
-- Load the **plan** from **`.cursor/features/current/2_Plan.md`** (or latest `2_Plan_*.md`) and/or conversation context.
+- Load the **plan** from **`.features/current/2_Plan.md`** (or latest `2_Plan_*.md`) and/or conversation context.
 - Load the **PRD** from **`1_ProductRequirementsDocument*.md`** in the same folder when needed.
 - If the user skipped `/plan`, accept a short inline brief from chat and still record outcomes in `3_Implementation.md`.
 
@@ -54,7 +54,7 @@ Use Markdown with clear `##` headings. Save to the **next free** `3_Implementati
 
 Confirm in one line:
 
-> Implementation summary saved to **`.cursor/features/current/3_Implementation*.md`** — ready for `/review`.
+> Implementation summary saved to **`.features/current/3_Implementation*.md`** — ready for `/review`.
 
 ---
 
