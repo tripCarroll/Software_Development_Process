@@ -223,4 +223,3 @@ Reply **"approved"** to close out this cycle, or tell me what to adjust.
 - Never fabricate missing PRD/plan/implementation/review text — note gaps in the overview and sign-off.
 - **Always** run Stage 0–1 so the cycle has a **dated project folder** and artifacts are **inside** it; do not leave the canonical numbered files only in a legacy plain `current/` directory when a symlink layout is possible.
 - Prefer **next-free** version suffixes `_a`, `_b`, `_c` **before** `.md`.
-- If the user has not run **`/initialize`**, this skill still **creates** the folder and **moves** artifacts — it does **not** require `/initialize` first.
