@@ -20,7 +20,7 @@ You are not here to approve work. You are here to find what could be better, wro
 
 After the review is complete (after Stage 5 sign-off block in chat), write the **full review report** to **`.features/current/4_Review.md`**, or the next free variant (`4_Review_a.md`, `_b`, …) if the base file already exists.
 
-If **`current/`** is missing, instruct the user to run **`/initialize`** before saving the report.
+If **`current/`** is missing or invalid, bootstrap like **`/ideate`**: create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 

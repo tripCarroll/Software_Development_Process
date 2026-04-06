@@ -13,12 +13,12 @@ You are acting as a technical archivist. **`0_Overview.md` is produced only by t
 **Durable folder basename:** `YYYY-MM-DD_FeatureTitle`  
 **Full path:** `[workspace-root]/.features/YYYY-MM-DD_FeatureTitle/`
 
-Use the same **date** and **sanitization** rules as **`/initialize`**:
+**Date** and **sanitization** rules:
 
 - **`DATE`:** `YYYY-MM-DD` (prefer the session **“today”** from user context when available).
 - **`SanitizedName`:** from the feature / project name — allow letters, numbers, hyphen, underscore; replace spaces with `_`; strip or replace other characters; collapse repeats; **avoid empty string** (fallback `feature`).
 - **Folder basename:** `DATE_SanitizedName` (e.g. `2026-03-28_OAuthRefresh`).
-- If `.features/DATE_SanitizedName` already exists and you must create a new distinct folder, append `_2`, `_3`, … until unused (same as `/initialize`).
+- If `.features/DATE_SanitizedName` already exists and you must create a new distinct folder, append `_2`, `_3`, … until unused.
 
 **Active path for tools:** After this skill finishes, artifact paths should resolve through **`.features/current/`** when that entry is a **symlink** to the project folder (preferred). While executing, use the resolved **`TARGET_DIR`** below for all reads/writes and moves.
 
@@ -54,7 +54,7 @@ For artifacts **1–4**, versioning is owned by their producing skills; this ski
    - Compute **`DATE`**, sanitize to **`SanitizedName`**, set **`TARGET_DIR`** = `.features/DATE_SanitizedName` (with `_2`, `_3`, … disambiguation if that path already exists).
    - **Create** `TARGET_DIR` as a directory.
 
-4. **Optional `README.md` in `TARGET_DIR`:** If `TARGET_DIR` was **just created** and has no `README.md`, add one (same spirit as `/initialize`): line 1 human feature name, line 2 **Started:** `DATE`, line 3 note that numbered artifacts and `0_Overview.md` live here and that **`/document`** consolidated the cycle.
+4. **Optional `README.md` in `TARGET_DIR`:** If `TARGET_DIR` was **just created** and has no `README.md`, add one: line 1 human feature name, line 2 **Started:** `DATE`, line 3 note that numbered artifacts and `0_Overview.md` live here and that **`/document`** consolidated the cycle.
 
 ---
 

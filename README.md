@@ -21,15 +21,14 @@ Invoke skills by asking the agent in natural language (e.g. “run `/plan` for t
 
 Typical order:
 
-1. **`/initialize`** — Create the dated feature folder and set `.features/current/` before any other skill runs.
-2. **`/context-gathering`** (optional but useful) — Map the relevant area of the codebase.
-3. **`/ideate`** — Interview, then produce a signed-off **PRD**.
-4. **`/plan`** — Turn the PRD into a phased **implementation plan**; sign-off before build.
-5. **`/implement`** — Execute the plan task-by-task, tests alongside work; **implementation summary**.
-6. **`/teach`** (optional) — After implementation, get a structured explanation of what was built and why.
-7. **`/review`** — Best in a **fresh chat**: cold read of code against PRD, plan, and summary; structured findings.
-8. **`/document`** — Collate artifacts into **`.features/[date_name]/`** and a readable **overview** plus index.
-9. **`/retro`** (after a full cycle) — Meta review: how well the *skills* worked; proposed edits to skill files (you apply them).
+1. **`/context-gathering`** (optional but useful) — Map the relevant area of the codebase.
+2. **`/ideate`** — Interview, then produce a signed-off **PRD** (creates **`.features/current/`** if needed before saving).
+3. **`/plan`** — Turn the PRD into a phased **implementation plan**; sign-off before build.
+4. **`/implement`** — Execute the plan task-by-task, tests alongside work; **implementation summary**.
+5. **`/teach`** (optional) — After implementation, get a structured explanation of what was built and why.
+6. **`/review`** — Best in a **fresh chat**: cold read of code against PRD, plan, and summary; structured findings.
+7. **`/document`** — Collate artifacts into **`.features/[date_name]/`** and a readable **overview** plus index.
+8. **`/retro`** (after a full cycle) — Meta review: how well the *skills* worked; proposed edits to skill files (you apply them).
 
 ---
 
@@ -37,7 +36,6 @@ Typical order:
 
 | Command | Skill | Role |
 |--------|--------|------|
-| `/initialize` | **initialize** | **Starts a feature cycle**: asks for a feature name, creates **`.features/YYYY-MM-DD_Name/`**, links `current` to it, and archives any previous `current`. Run this before `/ideate`. |
 | `/context-gathering [area]` | **context-gathering** | Scans a path or domain and writes a structured **context map** to **`.features/current/context-map-[area].md`**, plus a short session summary so later steps match real patterns and config. |
 | `/ideate` | **ideate** | Structured **interview** (small batches of questions), then a full **PRD** and refinement pass; explicit **sign-off** before planning. Saves `1_ProductRequirementsDocument.md` under `.features/current/`. |
 | `/plan` | **plan** | Reads the PRD (and context you’ve loaded); produces an **adaptive** phased plan (no boilerplate sections); refinement pass; **sign-off** before `/implement`. Saves `2_Plan.md` under `.features/current/`. |

@@ -14,7 +14,7 @@ Do not over-engineer the plan. Do not invent sections the work doesn't need. The
 
 Save the final plan to **`[workspace-root]/.features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
 
-If **`.features/current/`** is missing, instruct the user to run **`/initialize`** first.
+If **`.features/current/`** is missing or invalid, bootstrap like **`/ideate`**: create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 

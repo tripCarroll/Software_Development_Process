@@ -16,7 +16,7 @@ After implementation is **complete** (or at a natural milestone the user approve
 
 **Versioning:** If `3_Implementation.md` exists, use `3_Implementation_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
 
-If **`.features/current/`** does not exist, instruct the user to run **`/initialize`** before saving.
+If **`.features/current/`** does not exist or is invalid, bootstrap like **`/ideate`**: create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 

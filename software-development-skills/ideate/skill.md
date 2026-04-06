@@ -14,7 +14,7 @@ Persist the signed-off PRD to the **active feature folder**:
 
 **Path:** `[workspace-root]/.features/current/1_ProductRequirementsDocument.md`
 
-If **`.features/current/`** does not exist, tell the user to run **`/initialize`** before saving (or run it for them if appropriate).
+If **`.features/current/`** does not exist or does not resolve to a dated project folder under **`.features/`**, bootstrap it before saving: ensure **`.features/`** exists; set **`DATE`** to `YYYY-MM-DD` (prefer session “today”); derive **`SanitizedName`** from the feature (ask if unclear — allow letters, numbers, hyphen, underscore; spaces → `_`; strip or replace other characters; fallback `feature`); if **`.features/DATE_SanitizedName`** already exists and you need a new distinct folder, append `_2`, `_3`, …; create that directory; from **`.features/`**, run **`ln -sfn DATE_SanitizedName current`** so **`current`** is a relative symlink to the new folder.
 
 **Versioning:** If `1_ProductRequirementsDocument.md` already exists, save as `1_ProductRequirementsDocument_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
 
