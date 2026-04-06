@@ -1,6 +1,6 @@
 ---
 name: teach
-description: Explain and teach the code that was just implemented. Use this skill whenever the user asks Cursor to explain, teach, or break down something it just built — or anytime a phrase like "explain what you did", "teach me", "what does this code do", "help me understand", "walk me through this", or "what did you just write" appears. Also trigger after any implementation task if the user has indicated they want to learn (e.g., they've said they're new to coding, want to become a better coder, or want to understand the code, not just use it). When in doubt, use this skill — it's better to over-explain than leave the user confused.
+description: Explains recently implemented code in plain language—big picture, stack, libraries, key snippets, and takeaways for learners. Use when the user asks to explain, teach, walk through, or understand what was built; uses phrases like "what did you write" or "help me understand"; or signals they want to learn (new to coding, wants depth, not only the feature shipped).
 ---
 
 # Code Teacher

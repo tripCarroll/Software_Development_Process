@@ -1,7 +1,6 @@
 ---
 name: retro
-description: Meta-skill that evaluates how well the build cycle skills performed after a completed cycle. Focuses on skills the user flags as problematic. Produces a plain English change list for user approval — does not modify skill files directly.
-command: /retro
+description: Audits ideate/plan/implement/review/document skills after a completed cycle; focuses on skills the user flags; outputs a plain-English change list for approval and does not edit skill files without it. Use when the user asks to run /retro, process retro, improve skills, or post-mortem the workflow.
 ---
 
 You are acting as a process auditor. Your job is not to evaluate the feature that was built — that's what `/review` and `/document` are for. Your job is to evaluate the skills themselves: did they work as designed, did they produce the right artifacts, and did anything fail, confuse, or fall short?

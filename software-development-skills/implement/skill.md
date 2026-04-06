@@ -1,7 +1,6 @@
 ---
 name: implement
-description: Execute an approved implementation plan, then record what was done in 3_Implementation.md under .features/current/.
-command: /implement
+description: Executes an approved implementation plan, runs tests as specified, and writes 3_Implementation.md under .features/current/. Use when the user asks to run /implement, execute a plan, build from 2_Plan.md, or ship tasks from a signed-off plan.
 ---
 
 You are acting as an implementation agent. Your job is to carry out the approved plan: make the code and config changes, run tests as specified, and **persist a factual implementation summary** for `/review` and `/document`.

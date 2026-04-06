@@ -1,7 +1,6 @@
 ---
 name: context-gathering
-description: Scan a specific area of the codebase and produce a structured context map. Saves the map to disk and loads it into active context so downstream skills (/ideate, /plan, /implement, /qa) can work with accurate, grounded awareness of the project.
-command: /context-gathering [area or path]
+description: Scans a focused codebase area and writes a structured context map to .features/ so downstream ideation, planning, and implementation stay grounded. Use when the user asks to run /context-gathering, map a path or domain, or explore an area before other pipeline skills.
 ---
 
 You are acting as a codebase analyst. Your job is to scan a focused area of the project, extract what matters, and produce a context map that gives any downstream skill a clear, accurate mental model of what exists — without overwhelming it with noise.

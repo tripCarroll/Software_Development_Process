@@ -11,9 +11,9 @@ Skills are folders that contain a main instruction file. Cursor expects:
 - **Personal:** `~/.cursor/skills/<skill-name>/SKILL.md`
 - **Project:** `.cursor/skills/<skill-name>/SKILL.md`
 
-In this repo the files are named `skill.md`. For Cursor, rename each to **`SKILL.md`** (or symlink/copy the directories into one of the paths above). A **symbolic link** to this repo’s `software-development-skills/<name>/` folder is more reliable than a macOS Finder alias.
+Each skill folder’s entry file is **`SKILL.md`** (Cursor’s required name). Symlink or copy each folder into **`~/.cursor/skills/<skill-name>/`** or **`.cursor/skills/<skill-name>/`** in a project. A **symbolic link** to this repo’s `software-development-skills/<name>/` folder is more reliable than a macOS Finder alias.
 
-Invoke skills by asking the agent in natural language (e.g. “run `/plan` for this PRD”) or whatever slash-command style you use in your setup. Each skill’s frontmatter includes a `command:` hint (e.g. `/ideate`).
+Invoke skills by asking the agent in natural language (e.g. “run `/plan` for this PRD”) or whatever slash-command style you use in your setup. Each skill’s **`description`** in frontmatter includes slash-style trigger hints (e.g. `/ideate`) so the agent can match intent.
 
 ---
 

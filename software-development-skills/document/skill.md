@@ -1,7 +1,6 @@
 ---
 name: document
-description: Close out a feature cycle — resolve or create `.features/YYYY-MM-DD_FeatureName/`, move artifacts into it, write `0_Overview.md`, ensure artifacts 1–4 are present, and update the features index. Does not produce 1_ProductRequirementsDocument through 4_Review (those come from ideate/plan/implement/review).
-command: /document
+description: Closes a feature cycle—resolves or creates .features/YYYY-MM-DD_FeatureName/, moves artifacts, writes 0_Overview.md, ensures artifacts 1–4 exist, updates .features/README.md. Does not author 1_ProductRequirementsDocument through 4_Review. Use when the user asks to run /document, archive a cycle, or consolidate feature artifacts.
 ---
 
 You are acting as a technical archivist. **`0_Overview.md` is produced only by this skill.** Other artifacts (`1_ProductRequirementsDocument.md` … `4_Review.md`) should already exist from earlier skills; this skill **resolves the durable project folder**, **moves** in-progress artifacts into it when needed, **ensures** numbered files are there, fills gaps from conversation context when possible, and writes the overview.

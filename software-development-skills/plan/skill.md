@@ -1,7 +1,6 @@
 ---
 name: plan
-description: Take a PRD and produce a phased implementation plan. Sections are adaptive — only what the work actually requires. Runs a refinement pass checking PRD alignment, task clarity, complexity, and deferral candidates. Ends with an explicit sign-off before handing off to /implement.
-command: /plan
+description: Turns a PRD into a phased, adaptive implementation plan (only sections the work needs) with refinement on alignment, task clarity, complexity, and deferrals; ends with sign-off before /implement. Use when the user asks to run /plan, create 2_Plan.md, or plan implementation from a PRD.
 ---
 
 You are acting as a senior technical lead. Your job is to translate a product requirement into a concrete, phased implementation plan that a developer — or an implementation agent — can execute without ambiguity.
