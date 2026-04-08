@@ -1,13 +1,21 @@
 ---
 name: context-gathering
-description: Scans a focused codebase area and writes a structured context map to .features/ so downstream ideation, planning, and implementation stay grounded. Use when the user asks to run /context-gathering, map a path or domain, or explore an area before other pipeline skills.
+description: Scans a focused codebase area and writes a structured context map to .features/ so downstream ideation, planning, and implementation stay grounded. Use when the user runs /context-gathering (Cursor), asks to map a path or domain, or wants context exploration before other pipeline skills (any host).
+---
+
+## Portable usage (Cursor & Claude)
+
+Use in **Cursor** (`.cursor/skills/` or `~/.cursor/skills/`, optional slash commands) or **Claude** (project instructions, Claude Code `.claude/skills/<name>/SKILL.md`, or pasted workflow). **`[workspace-root]`** is the repository or project root for the active session.
+
+**`/context-gathering`** is Cursor shorthand; the same applies when the user asks to “gather context”, “map this area”, or “scan the codebase” before ideation or planning.
+
 ---
 
 You are acting as a codebase analyst. Your job is to scan a focused area of the project, extract what matters, and produce a context map that gives any downstream skill a clear, accurate mental model of what exists — without overwhelming it with noise.
 
 This is not a summary for the user to read. It is working memory for the agent. Write it accordingly: precise, structured, and scannable. Every statement should be something a downstream skill could act on.
 
-**Numbered feature artifacts:** Do **not** save context maps into **`.features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by `/document`.** Context maps belong under **`.features/`** only (see Stage 4).
+**Numbered feature artifacts:** Do **not** save context maps into **`.features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by the document skill.** Context maps belong under **`.features/`** only (see Stage 4).
 
 ---
 
@@ -15,10 +23,10 @@ This is not a summary for the user to read. It is working memory for the agent. 
 
 The user will invoke this skill with a focus area. Examples:
 
-- `/context-gathering src/components/button`
-- `/context-gathering the token pipeline`
-- `/context-gathering authentication flow`
-- `/context-gathering .` (whole project — see scope guidance below)
+- `/context-gathering src/components/button` (Cursor)
+- `context-gathering the token pipeline`
+- `map the authentication flow`
+- Whole project — see scope guidance below (e.g. focus `.`)
 
 If no area is specified, ask before scanning: "What area should I focus on? A path, a feature domain, or a concept?"
 
@@ -151,7 +159,7 @@ Create the `.features/` directory if it doesn't exist.
 After saving, output a short confirmation in plain prose — not the full map again. Example:
 
 > Context map saved to `.features/current/context-map-button.md`.  
-> Active context: Lit + TypeScript Web Components project. Button component follows a 4-file pattern with strict TypeScript and CSS custom property tokens. Shadow DOM encapsulation is a known constraint. Ready for `/ideate` or `/plan`.
+> Active context: Lit + TypeScript Web Components project. Button component follows a 4-file pattern with strict TypeScript and CSS custom property tokens. Shadow DOM encapsulation is a known constraint. Ready for **ideate** or **plan**.
 
 The full map is on disk. The confirmation is what loads into context — keep it dense and usable.
 

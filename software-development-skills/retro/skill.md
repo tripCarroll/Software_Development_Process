@@ -1,9 +1,15 @@
 ---
 name: retro
-description: Audits ideate/plan/implement/review/document skills after a completed cycle; focuses on skills the user flags; outputs a plain-English change list for approval and does not edit skill files without it. Use when the user asks to run /retro, process retro, improve skills, or post-mortem the workflow.
+description: Audits ideate/plan/implement/review/document skills after a completed cycle; focuses on skills the user flags; outputs a plain-English change list for approval and does not edit skill files without it. Use when the user runs /retro (Cursor), asks for a process retro, skill improvements, or a workflow post-mortem (any host).
 ---
 
-You are acting as a process auditor. Your job is not to evaluate the feature that was built — that's what `/review` and `/document` are for. Your job is to evaluate the skills themselves: did they work as designed, did they produce the right artifacts, and did anything fail, confuse, or fall short?
+## Portable usage (Cursor & Claude)
+
+**`/retro`** = Cursor shorthand for this process-audit workflow. **`[workspace-root]`** is the repo/project root.
+
+---
+
+You are acting as a process auditor. Your job is not to evaluate the feature that was built — that's what **review** and **document** are for. Your job is to evaluate the skills themselves: did they work as designed, did they produce the right artifacts, and did anything fail, confuse, or fall short?
 
 This is a prototype skill set. Treat it accordingly — be honest, be specific, and don't protect decisions that didn't hold up in practice.
 
@@ -11,11 +17,11 @@ This is a prototype skill set. Treat it accordingly — be honest, be specific, 
 
 ## Stage 1 — Orient
 
-When the user invokes `/retro`, ask them two things before doing anything:
+When the user invokes **retro** (e.g. `/retro` in Cursor), ask them two things before doing anything:
 
 **1. Which skills felt off?**
 
-> Which skills would you like me to focus on? You can name specific ones (e.g. `/plan`, `/review`), describe what felt wrong ("the handoff between implement and review was awkward"), or say "all of them" if you want a full sweep.
+> Which skills would you like me to focus on? You can name specific ones (e.g. **plan**, **review**), describe what felt wrong ("the handoff between implement and review was awkward"), or say "all of them" if you want a full sweep.
 
 **2. What happened?**
 
@@ -30,15 +36,15 @@ Wait for their response before proceeding. Do not assume which skills to evaluat
 Before evaluating, locate the artifacts produced during the cycle. These are the evidence of how the skills performed.
 
 Check **`.features/current/`** (active cycle) and any **archived** folders **`YYYY-MM-DD_Name/`** under **`.features/`** for:
-- `1_ProductRequirementsDocument*.md` — `/ideate`
-- `2_Plan*.md` — `/plan`
-- `3_Implementation*.md` — `/implement`
-- `4_Review*.md` — `/review`
-- `0_Overview*.md` — `/document` (**only** skill that produces `0_Overview`)
+- `1_ProductRequirementsDocument*.md` — **ideate**
+- `2_Plan*.md` — **plan**
+- `3_Implementation*.md` — **implement**
+- `4_Review*.md` — **review**
+- `0_Overview*.md` — **document** (**only** skill that produces `0_Overview`)
 
-Also check **`.features/`** for context maps — evidence of how `/context-gathering` performed (context maps are **not** stored as `0_` in the feature folder).
+Also check **`.features/`** for context maps — evidence of how **context-gathering** performed (context maps are **not** stored as `0_` in the feature folder).
 
-Legacy **`.cursor/docs/`** trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
+Legacy **`.cursor/docs/`** (or similar) trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
 
 Also ask the user if there's anything specific they noticed during the cycle that isn't captured in the artifacts — moments where the agent got confused, ignored instructions, asked unnecessary questions, produced something wrong, or missed something important. Their live experience is evidence too.
 
@@ -51,7 +57,7 @@ For each skill the user flagged, evaluate it against three questions:
 **1. Did the skill produce the right artifact?**
 Look at the artifact it generated. Is it complete? Is it the right shape? Does it contain what it was supposed to contain? Is there anything obviously missing that would have helped the next phase?
 
-**2. Did the skill produce the right artifact?**
+**2. Did the skill execute correctly?**
 Did anything go wrong — agent ignored an instruction, produced garbled output, skipped a stage, hallucinated content, misunderstood the inputs, looped incorrectly, or failed to hand off cleanly?
 
 **3. Was anything missing that would have helped?**
@@ -60,7 +66,7 @@ Is there something the skill should have done, asked, produced, or checked that 
 For each skill, write a short honest assessment:
 
 ```
-## /[skill name]
+## [Skill name]
 
 **Artifact produced:** [What it generated and whether it was right]
 **Failures or misfires:** [Anything that went wrong, or "None observed"]
@@ -73,25 +79,25 @@ If a skill performed well with nothing to improve, say so in one sentence and mo
 
 ## Stage 4 — Propose changes
 
-After evaluating all flagged skills, compile a plain English change list. Each proposed change should be specific enough that you — or the agent — could open the SKILL.md file and know exactly what to do.
+After evaluating all flagged skills, compile a plain English change list. Each proposed change should be specific enough that you — or the agent — could open the skill file and know exactly what to do.
 
 Format each proposed change as:
 
 ```
 ### Change [N]: [Short title]
-**Skill:** /[skill name]
+**Skill:** [skill name]
 **Type:** [Add section / Remove section / Rewrite section / Change artifact format / Adjust behavior rule / New skill]
 **What to change:** [Plain English description of exactly what should be different and why]
 ```
 
-**Types of changes `/retro` can propose:**
+**Types of changes retro can propose:**
 
 - **Add section** — something new that belongs in the skill but isn't there
 - **Remove section** — something in the skill that didn't work or created noise
 - **Rewrite section** — something that exists but needs to be clearer, more specific, or restructured
 - **Change artifact format** — the structure or content of what the skill produces needs to change
 - **Adjust behavior rule** — a rule governing how the agent acts (when to stop, when to ask, what to avoid) needs to change
-- **New skill** — something the cycle revealed that doesn't belong in any existing skill and warrants its own command
+- **New skill** — something the cycle revealed that doesn't belong in any existing skill and warrants its own workflow
 
 Order changes by impact — the ones that would most improve the next cycle come first.
 
@@ -123,7 +129,7 @@ When the user approves a specific change or asks to apply it, produce the edit i
 
 ```
 ### Applying change [N]: [Title]
-**File:** .cursor/skills/[skill-name]/SKILL.md
+**File:** Path to the skill’s `SKILL.md` — e.g. this repo’s `software-development-skills/<folder>/SKILL.md`, or the user’s copy under `.cursor/skills/<name>/SKILL.md` or `.claude/skills/<name>/SKILL.md`
 **Action:** [Add after / Replace / Remove]
 **Location:** [Section name or unique phrase to locate the target]
 

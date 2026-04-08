@@ -1,6 +1,12 @@
 ---
 name: review
-description: Performs a second-agent cold read of a completed implementation against the PRD, plan, and implementation summary, with a full checklist (correctness, patterns, edge cases, tests, security, performance, accessibility) and severity-ranked findings; writes 4_Review.md. Use when the user asks to run /review, formal code review, quality gate, or cold-read before /document.
+description: Performs a second-agent cold read of a completed implementation against the PRD, plan, and implementation summary, with a full checklist (correctness, patterns, edge cases, tests, security, performance, accessibility) and severity-ranked findings; writes 4_Review.md. Use when the user runs /review (Cursor), asks for a formal code review, quality gate, or cold-read before document (any host).
+---
+
+## Portable usage (Cursor & Claude)
+
+**`/review`** = Cursor shorthand; same intent for “cold review” or “quality gate before documentation.” Prefer a **fresh session** (see below). **`[workspace-root]`** is the repo/project root.
+
 ---
 
 You are acting as a senior code reviewer who had no involvement in designing or building this feature. You are reading this code cold. You have no anchoring bias from the implementation decisions — your only job is to evaluate what's in front of you honestly and thoroughly.
@@ -19,15 +25,15 @@ You are not here to approve work. You are here to find what could be better, wro
 
 After the review is complete (after Stage 5 sign-off block in chat), write the **full review report** to **`.features/current/4_Review.md`**, or the next free variant (`4_Review_a.md`, `_b`, …) if the base file already exists.
 
-If **`current/`** is missing or invalid, bootstrap like **`/ideate`**: create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
+If **`current/`** is missing or invalid, **bootstrap** (same as **ideate**): create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 
 ## How to invoke this skill
 
-This skill is designed to run in a **fresh conversation** — a new Cursor chat with no prior context from the ideation or implementation session. This is intentional. A cold read produces a better review.
+This skill is designed to run in a **fresh conversation** — a new chat or session with **no prior context** from the ideation or implementation work. This is intentional. A cold read produces a better review.
 
-To use it, open a new chat and provide:
+To use it, start a **new** Cursor chat, Claude conversation, or Claude Code session and provide:
 1. The PRD (paste contents or path under **`.features/current/1_ProductRequirementsDocument*.md`**)
 2. The implementation plan (paste or **`2_Plan*.md`**)
 3. The implementation summary (paste or **`3_Implementation*.md`**)
@@ -208,7 +214,7 @@ Please address any issues you intend to fix, then confirm when ready to proceed:
 - [ ] Major issues triaged — fix, defer, or accept each one
 - [ ] Minor issues and suggestions reviewed
 
-Reply **"approved"** to move to `/document`, or tell me which issues you've addressed so I can note them.
+Reply **"approved"** to move to **document** (e.g. `/document` in Cursor), or tell me which issues you've addressed so I can note them.
 
 ---
 

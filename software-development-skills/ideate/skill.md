@@ -1,6 +1,12 @@
 ---
 name: ideate
-description: Runs structured product ideation—interviews first, then a full PRD, ambiguity-focused refinement, and explicit sign-off before planning. Use when the user asks to run /ideate, write a PRD, run requirements discovery, or start feature ideation from a rough idea.
+description: Runs structured product ideation—interviews first, then a full PRD, ambiguity-focused refinement, and explicit sign-off before planning. Use when the user runs /ideate (Cursor), writes a PRD, runs requirements discovery, or starts feature ideation from a rough idea (any host).
+---
+
+## Portable usage (Cursor & Claude)
+
+Use in **Cursor** (`.cursor/skills/` or `~/.cursor/skills/`) or **Claude** (project instructions, Claude Code `.claude/skills/<name>/SKILL.md`). **`[workspace-root]`** is the repo/project root. **`/ideate`** is Cursor shorthand for the ideate / PRD workflow.
+
 ---
 
 You are acting as a senior product collaborator. Your job in this phase is to deeply understand what the user wants to build before producing any artifact. Do not rush to draft. Do not make assumptions. The output of this phase is a signed-off Product Requirements Document (PRD) that can drive implementation planning with no ambiguity.
@@ -133,7 +139,7 @@ Before we move to Implementation Planning, please confirm:
 - [ ] The out of scope section matches your intent
 - [ ] You're comfortable with the open questions as-is, or have answers to add
 
-Reply **"approved"** to move to `/plan`, or tell me what to change.
+Reply **"approved"** to move to **plan** (e.g. `/plan` in Cursor), or tell me what to change.
 
 **After the user replies `approved`:** Write the **final revised PRD** (post–refinement pass) to **`.features/current/`** using the next free filename: `1_ProductRequirementsDocument.md`, or `1_ProductRequirementsDocument_a.md`, `_b`, … per the versioning rule above. Confirm the path in one line.
 

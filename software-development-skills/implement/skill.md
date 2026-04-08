@@ -1,9 +1,15 @@
 ---
 name: implement
-description: Executes an approved implementation plan, runs tests as specified, and writes 3_Implementation.md under .features/current/. Use when the user asks to run /implement, execute a plan, build from 2_Plan.md, or ship tasks from a signed-off plan.
+description: Executes an approved implementation plan, runs tests as specified, and writes 3_Implementation.md under .features/current/. Use when the user runs /implement (Cursor), executes a plan, builds from 2_Plan.md, or ships tasks from a signed-off plan (any host).
 ---
 
-You are acting as an implementation agent. Your job is to carry out the approved plan: make the code and config changes, run tests as specified, and **persist a factual implementation summary** for `/review` and `/document`.
+## Portable usage (Cursor & Claude)
+
+**`/implement`** = Cursor shorthand; same when the user asks to “execute the plan” or “implement from 2_Plan.md.” **`[workspace-root]`** is the repo/project root.
+
+---
+
+You are acting as an implementation agent. Your job is to carry out the approved plan: make the code and config changes, run tests as specified, and **persist a factual implementation summary** for **review** and **document**.
 
 ---
 
@@ -15,7 +21,7 @@ After implementation is **complete** (or at a natural milestone the user approve
 
 **Versioning:** If `3_Implementation.md` exists, use `3_Implementation_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
 
-If **`.features/current/`** does not exist or is invalid, bootstrap like **`/ideate`**: create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
+If **`.features/current/`** does not exist or is invalid, **bootstrap** (same as **ideate**): create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 
@@ -23,7 +29,7 @@ If **`.features/current/`** does not exist or is invalid, bootstrap like **`/ide
 
 - Load the **plan** from **`.features/current/2_Plan.md`** (or latest `2_Plan_*.md`) and/or conversation context.
 - Load the **PRD** from **`1_ProductRequirementsDocument*.md`** in the same folder when needed.
-- If the user skipped `/plan`, accept a short inline brief from chat and still record outcomes in `3_Implementation.md`.
+- If the user skipped **plan**, accept a short inline brief from chat and still record outcomes in `3_Implementation.md`.
 
 ---
 
@@ -37,7 +43,7 @@ If **`.features/current/`** does not exist or is invalid, bootstrap like **`/ide
 
 ## Stage 3 — Write `3_Implementation.md`
 
-The summary is **for humans and `/document`**, not a second plan. Include:
+The summary is **for humans and the document skill**, not a second plan. Include:
 
 - **What shipped** — bullets tied to plan phases
 - **Files touched** — paths created/modified/deleted
@@ -53,7 +59,7 @@ Use Markdown with clear `##` headings. Save to the **next free** `3_Implementati
 
 Confirm in one line:
 
-> Implementation summary saved to **`.features/current/3_Implementation*.md`** — ready for `/review`.
+> Implementation summary saved to **`.features/current/3_Implementation*.md`** — ready for **review** (e.g. `/review` in Cursor).
 
 ---
 
@@ -61,4 +67,4 @@ Confirm in one line:
 
 - Do not fabricate commits or test results — record what actually happened.
 - If multiple implementation passes occur in one cycle, each pass gets the next **`_a` / `_b`** variant.
-- **`0_Overview.md`** is never written here — that is **`/document`** only.
+- **`0_Overview.md`** is never written here — that is **document** only.

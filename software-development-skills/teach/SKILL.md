@@ -1,6 +1,12 @@
 ---
 name: teach
-description: Explains recently implemented code in plain language—big picture, stack, libraries, key snippets, and takeaways for learners. Use when the user asks to explain, teach, walk through, or understand what was built; uses phrases like "what did you write" or "help me understand"; or signals they want to learn (new to coding, wants depth, not only the feature shipped).
+description: Explains recently implemented code in plain language—big picture, stack, libraries, key snippets, and takeaways for learners. Use when the user asks to explain, teach, walk through, or understand what was built; uses phrases like "what did you write" or "help me understand"; or signals they want to learn (new to coding, wants depth, not only the feature shipped). Works in Cursor and Claude.
+---
+
+## Portable usage (Cursor & Claude)
+
+Same instructions in **Cursor** (Agent Skills) or **Claude** (chat, project instructions, or Claude Code skills). No repo paths or slash commands required.
+
 ---
 
 # Code Teacher

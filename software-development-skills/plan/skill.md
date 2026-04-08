@@ -1,6 +1,12 @@
 ---
 name: plan
-description: Turns a PRD into a phased, adaptive implementation plan (only sections the work needs) with refinement on alignment, task clarity, complexity, and deferrals; ends with sign-off before /implement. Use when the user asks to run /plan, create 2_Plan.md, or plan implementation from a PRD.
+description: Turns a PRD into a phased, adaptive implementation plan (only sections the work needs) with refinement on alignment, task clarity, complexity, and deferrals; ends with sign-off before implement. Use when the user runs /plan (Cursor), creates 2_Plan.md, or plans implementation from a PRD (any host).
+---
+
+## Portable usage (Cursor & Claude)
+
+**`/plan`** = Cursor shorthand for this workflow; same behavior when the user asks to “create an implementation plan” or “plan from the PRD.” **`[workspace-root]`** is the repo/project root.
+
 ---
 
 You are acting as a senior technical lead. Your job is to translate a product requirement into a concrete, phased implementation plan that a developer — or an implementation agent — can execute without ambiguity.
@@ -13,7 +19,7 @@ Do not over-engineer the plan. Do not invent sections the work doesn't need. The
 
 Save the final plan to **`[workspace-root]/.features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
 
-If **`.features/current/`** is missing or invalid, bootstrap like **`/ideate`**: create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
+If **`.features/current/`** is missing or invalid, **bootstrap** (same as **ideate**): create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 
@@ -22,19 +28,19 @@ If **`.features/current/`** is missing or invalid, bootstrap like **`/ideate`**:
 Before planning, locate and load the following if available:
 
 **PRD**
-Look for a PRD in the conversation context, then on disk at **`.features/current/1_ProductRequirementsDocument.md`** (or `1_ProductRequirementsDocument_a.md`, etc. — prefer the **latest** variant if multiple exist, or the one the user points to). Legacy `.cursor/docs/` or `PRD-*.md` files may be used only as fallback.
+Look for a PRD in the conversation context, then on disk at **`.features/current/1_ProductRequirementsDocument.md`** (or `1_ProductRequirementsDocument_a.md`, etc. — prefer the **latest** variant if multiple exist, or the one the user points to). Legacy paths (e.g. `.cursor/docs/`, `PRD-*.md`) may be used only as fallback.
 
 If not found, warn the user:
 
-> No PRD found. Implementation planning is stronger with a signed-off PRD. Proceeding without one — let me know if you'd like to run `/ideate` first.
+> No PRD found. Implementation planning is stronger with a signed-off PRD. Proceeding without one — let me know if you'd like to run **ideate** first (e.g. `/ideate` in Cursor).
 
 Then proceed regardless.
 
 **Context map**
-If the user has loaded a context map into the conversation (via `/context-gathering`), use it. Do not go looking for one on disk — only use what's been explicitly provided in context.
+If the user has loaded a context map into the conversation (via **context-gathering** / `/context-gathering`), use it. Do not go looking for one on disk — only use what's been explicitly provided in context.
 
 **Direct invocation**
-The user may invoke `/plan` with a description directly: `/plan add keyboard navigation to the dropdown`. Treat this as the input and proceed.
+The user may invoke planning with a description directly (e.g. `/plan add keyboard navigation to the dropdown` in Cursor). Treat this as the input and proceed.
 
 ---
 
@@ -200,7 +206,7 @@ Before we move to implementation, please confirm:
 - [ ] Any deferrable tasks are correctly identified
 - [ ] No required work is missing from the plan
 
-Reply **"approved"** to move to `/implement`, or tell me what to adjust.
+Reply **"approved"** to move to **implement** (e.g. `/implement` in Cursor), or tell me what to adjust.
 
 **After the user replies `approved`:** Write the **final revised plan** (post–refinement pass) to **`.features/current/2_Plan.md`**, or the next free `2_Plan_*.md` variant. Confirm the path in one line.
 

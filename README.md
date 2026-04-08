@@ -2,7 +2,7 @@
 
 # Software development process skills
 
-This repository holds **Cursor agent skills** for a full build cycle: grounding work in the codebase, shaping requirements, planning, implementing, reviewing, archiving, and improving the process itself. The goal is more reliable, consistent, and higher-quality output by giving the agent explicit stages, artifacts, and handoffs.
+This repository holds **agent skills** (same `SKILL.md` format) for a full build cycle: grounding work in the codebase, shaping requirements, planning, implementing, reviewing, archiving, and improving the process itself. They are written to work in **Cursor** and **Claude** (see each skill’s **Portable usage** section). The goal is more reliable, consistent, and higher-quality output by giving the agent explicit stages, artifacts, and handoffs.
 
 ## Using these skills in Cursor
 
@@ -14,6 +14,13 @@ Skills are folders that contain a main instruction file. Cursor expects:
 Each skill folder’s entry file is **`SKILL.md`** (Cursor’s required name). Symlink or copy each folder into **`~/.cursor/skills/<skill-name>/`** or **`.cursor/skills/<skill-name>/`** in a project. A **symbolic link** to this repo’s `software-development-skills/<name>/` folder is more reliable than a macOS Finder alias.
 
 Invoke skills by asking the agent in natural language (e.g. “run `/plan` for this PRD”) or whatever slash-command style you use in your setup. Each skill’s **`description`** in frontmatter includes slash-style trigger hints (e.g. `/ideate`) so the agent can match intent.
+
+## Using these skills in Claude
+
+- **Claude.ai:** Paste a skill’s body into **Project instructions**, or upload `SKILL.md` and tell the model to follow it for that workflow. Slash commands are optional; natural language (“run the plan step”, “archive this cycle”) matches the same stages.
+- **Claude Code:** Copy or symlink each folder under **`.claude/skills/<skill-name>/`** so **`SKILL.md`** lives at `.claude/skills/<skill-name>/SKILL.md` (same layout as Cursor). Enable the skill in your Claude Code settings if your version requires it.
+
+Behavior and artifact paths (`.features/`, numbered files) are identical across hosts.
 
 ---
 
