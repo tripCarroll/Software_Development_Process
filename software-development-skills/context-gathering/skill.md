@@ -156,6 +156,8 @@ Save the context map to:
 
 Create the `.features/` directory if it doesn't exist.
 
+**Do not wait for user approval** before saving. As soon as the map content is complete, write the file in the same turn. The user reviews and edits the markdown on disk if they want changes.
+
 After saving, output a short confirmation in plain prose — not the full map again. Example:
 
 > Context map saved to `.features/current/context-map-button.md`.  
@@ -171,4 +173,5 @@ The full map is on disk. The confirmation is what loads into context — keep it
 - Do not summarize every file — surface what's meaningful for a developer about to add or change something.
 - If a pattern is inconsistent, say so explicitly. Downstream skills need to know whether to follow the pattern or flag it.
 - Do not ask the user questions during the scan unless the scope is genuinely ambiguous before you start.
+- **Persist without approval:** write the context map file as soon as it is ready; do not ask the user to confirm before saving.
 - Always re-scan fresh — do not rely on prior context map files from previous sessions, even if they exist on disk.

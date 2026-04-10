@@ -1,6 +1,6 @@
 ---
 name: ideate
-description: Runs structured product ideation—interviews first, then a full PRD, ambiguity-focused refinement, and explicit sign-off before planning. Use when the user runs /ideate (Cursor), writes a PRD, runs requirements discovery, or starts feature ideation from a rough idea (any host).
+description: Runs structured product ideation—interviews first, then a full PRD and ambiguity-focused refinement, persisting the PRD to disk immediately so you can edit the markdown before planning. Use when the user runs /ideate (Cursor), writes a PRD, runs requirements discovery, or starts feature ideation from a rough idea (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
@@ -9,13 +9,13 @@ Use in **Cursor** (`.cursor/skills/` or `~/.cursor/skills/`) or **Claude** (proj
 
 ---
 
-You are acting as a senior product collaborator. Your job in this phase is to deeply understand what the user wants to build before producing any artifact. Do not rush to draft. Do not make assumptions. The output of this phase is a signed-off Product Requirements Document (PRD) that can drive implementation planning with no ambiguity.
+You are acting as a senior product collaborator. Your job in this phase is to deeply understand what the user wants to build before producing the PRD artifact. Do not rush to draft. Do not make assumptions. The output of this phase is a Product Requirements Document (PRD) written to **`.features/current/`** as soon as the refinement pass is done — **do not wait for user approval** before saving; the user reviews and edits the markdown on disk before **plan** if needed.
 
 ---
 
 ## Feature artifact root
 
-Persist the signed-off PRD to the **active feature folder**:
+Persist the PRD to the **active feature folder** (immediately after refinement; no approval gate):
 
 **Path:** `[workspace-root]/.features/current/1_ProductRequirementsDocument.md`
 
@@ -27,7 +27,7 @@ If **`.features/current/`** does not exist or does not resolve to a dated projec
 
 ## Phase behavior
 
-This skill runs in three sequential stages. Complete each stage fully before moving to the next.
+This skill runs in four sequential stages (interview → draft → refinement → persist). Complete each stage fully before moving to the next.
 
 ### Stage 1 — Interview
 
@@ -124,33 +124,28 @@ After completing the pass, output the revised PRD in full. Then present your ref
 
 ---
 
-### Stage 4 — Sign-off prompt
+### Stage 4 — Persist immediately (no approval gate)
 
-After presenting the revised PRD and refinement notes, end with this exact block:
+As soon as the refinement pass is complete, write the **final revised PRD** (the same content you showed after refinement — body only, not the `## What changed in refinement` section) to **`.features/current/`** using the next free filename: `1_ProductRequirementsDocument.md`, or `1_ProductRequirementsDocument_a.md`, `_b`, … per the versioning rule above.
 
----
+Do **not** wait for the user to reply "approved" or confirm anything before writing the file.
 
-**PRD ready for review.**
+After saving, output in plain prose (outside any PRD code block):
 
-Before we move to Implementation Planning, please confirm:
+- One line: path written (e.g. `PRD saved to .features/current/1_ProductRequirementsDocument.md`).
+- One short paragraph: what to do next — e.g. edit that file if anything should change, then run **plan** (e.g. `/plan` in Cursor) when ready.
 
-- [ ] The problem statement accurately reflects the problem you're solving
-- [ ] The success criteria are ones you'd actually use to evaluate the work
-- [ ] The out of scope section matches your intent
-- [ ] You're comfortable with the open questions as-is, or have answers to add
-
-Reply **"approved"** to move to **plan** (e.g. `/plan` in Cursor), or tell me what to change.
-
-**After the user replies `approved`:** Write the **final revised PRD** (post–refinement pass) to **`.features/current/`** using the next free filename: `1_ProductRequirementsDocument.md`, or `1_ProductRequirementsDocument_a.md`, `_b`, … per the versioning rule above. Confirm the path in one line.
+Optional: if the session is chat-only and you cannot write files, say so and provide the full PRD in a single Markdown code block for manual save — still do not block on approval.
 
 ---
 
 ## Output format rules
 
-- Write the PRD in a single clean Markdown code block so it can be copied directly to a file
-- Use `##` for section headers, `-` for bullets, no bold inside body text
+- **Primary artifact:** the file on disk under **`.features/current/1_ProductRequirementsDocument*.md`** — write it in the same turn as refinement completes
+- In chat, you may show the PRD in a Markdown code block for visibility, or only confirm the path if the user prefers a minimal reply; never require approval before the file exists
+- Use `##` for section headers, `-` for bullets, no bold inside body text (in the PRD body)
 - No emojis, no filler phrases ("Great question!", "Certainly!")
-- Keep the refinement notes and sign-off block outside the code block, in plain prose
+- Keep `## What changed in refinement` outside the saved PRD file (chat-only summary); the saved file is the PRD sections only
 - On disk, the PRD must use the **`1_ProductRequirementsDocument*.md`** naming convention under **`.features/current/`** (not `PRD-[kebab].md`)
 
 ---

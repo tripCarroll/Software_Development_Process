@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Turns a PRD into a phased, adaptive implementation plan (only sections the work needs) with refinement on alignment, task clarity, complexity, and deferrals; ends with sign-off before implement. Use when the user runs /plan (Cursor), creates 2_Plan.md, or plans implementation from a PRD (any host).
+description: Turns a PRD into a phased, adaptive implementation plan (only sections the work needs) with refinement on alignment, task clarity, complexity, and deferrals; writes 2_Plan.md immediately so you can edit the markdown before implement. Use when the user runs /plan (Cursor), creates 2_Plan.md, or plans implementation from a PRD (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
@@ -17,7 +17,7 @@ Do not over-engineer the plan. Do not invent sections the work doesn't need. The
 
 ## Feature artifact root
 
-Save the final plan to **`[workspace-root]/.features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
+Save the plan to **`[workspace-root]/.features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists) **as soon as the refinement pass is complete** — do not wait for user approval before writing.
 
 If **`.features/current/`** is missing or invalid, **bootstrap** (same as **ideate**): create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
@@ -32,7 +32,7 @@ Look for a PRD in the conversation context, then on disk at **`.features/current
 
 If not found, warn the user:
 
-> No PRD found. Implementation planning is stronger with a signed-off PRD. Proceeding without one — let me know if you'd like to run **ideate** first (e.g. `/ideate` in Cursor).
+> No PRD found. Implementation planning is stronger with a PRD on disk under `.features/current/`. Proceeding without one — let me know if you'd like to run **ideate** first (e.g. `/ideate` in Cursor).
 
 Then proceed regardless.
 
@@ -191,33 +191,28 @@ After completing the pass, output the revised plan in full, followed by a short 
 
 ---
 
-## Stage 5 — Sign-off prompt
+## Stage 5 — Persist immediately (no approval gate)
 
-End with this exact block:
+As soon as the refinement pass is complete, write the **final revised plan** (plan body only — not the `## What changed in refinement` section) to **`.features/current/2_Plan.md`**, or the next free `2_Plan_*.md` variant.
 
----
+Do **not** wait for the user to reply "approved" or confirm anything before writing the file.
 
-**Implementation plan ready for review.**
+After saving, output in plain prose:
 
-Before we move to implementation, please confirm:
+- One line: path written (e.g. `Plan saved to .features/current/2_Plan.md`).
+- One short paragraph: edit that file if anything should change, then run **implement** (e.g. `/implement` in Cursor) when ready.
 
-- [ ] The phases and task sequence reflect how you'd actually approach this
-- [ ] Complexity estimates feel accurate
-- [ ] Any deferrable tasks are correctly identified
-- [ ] No required work is missing from the plan
-
-Reply **"approved"** to move to **implement** (e.g. `/implement` in Cursor), or tell me what to adjust.
-
-**After the user replies `approved`:** Write the **final revised plan** (post–refinement pass) to **`.features/current/2_Plan.md`**, or the next free `2_Plan_*.md` variant. Confirm the path in one line.
+Optional: if the session is chat-only and you cannot write files, say so and provide the full plan in a single Markdown code block for manual save — still do not block on approval.
 
 ---
 
 ## Output format rules
 
-- Write the plan in a single clean Markdown code block so it can be saved directly to a file
+- **Primary artifact:** the file on disk under **`.features/current/2_Plan*.md`** — write it in the same turn as refinement completes
+- In chat, you may show the plan in a Markdown code block or only confirm the path; never require approval before the file exists
 - Omit any section that has nothing meaningful to say — placeholder sections with "N/A" are noise
 - Use `##` for sections, `###` for subsections, `- [ ]` for tasks
 - No emojis, no filler phrases
-- On disk, save as **`2_Plan*.md`** under **`.features/current/`** (not `PLAN-[kebab].md` at repo root)
+- On disk, save as **`2_Plan*.md`** under **`.features/current/`** (not `PLAN-[kebab].md` at repo root); keep `## What changed in refinement` out of the saved file (chat-only)
 - Complexity estimates go inline with each task: `- [ ] Add keyboard event handler — S`
 - Deferrable tasks go inline: `- [ ] Animate open/close transition — S — [deferrable]`
