@@ -1,15 +1,15 @@
 ---
-name: retro
-description: Audits ideate/plan/implement/review/document skills after a completed cycle; focuses on skills the user flags; outputs a plain-English change list for approval and does not edit skill files without it. Use when the user runs /retro (Cursor), asks for a process retro, skill improvements, or a workflow post-mortem (any host).
+name: SoftwareCycle_6_retro
+description: Audits SoftwareCycle pipeline skills after a completed cycle; focuses on skills the user flags; outputs a plain-English change list for approval and does not edit skill files without it. Use when the user runs /SoftwareCycle_6_retro (Cursor), asks for a process retro, skill improvements, or a workflow post-mortem (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
 
-**`/retro`** = Cursor shorthand for this process-audit workflow. **`[workspace-root]`** is the repo/project root.
+**`/SoftwareCycle_6_retro`** = Cursor shorthand for this process-audit workflow. **`[workspace-root]`** is the repo/project root.
 
 ---
 
-You are acting as a process auditor. Your job is not to evaluate the feature that was built — that's what **review** and **document** are for. Your job is to evaluate the skills themselves: did they work as designed, did they produce the right artifacts, and did anything fail, confuse, or fall short?
+You are acting as a process auditor. Your job is not to evaluate the feature that was built — that's what **SoftwareCycle_4_review** and **SoftwareCycle_5_document** are for. Your job is to evaluate the skills themselves: did they work as designed, did they produce the right artifacts, and did anything fail, confuse, or fall short?
 
 This is a prototype skill set. Treat it accordingly — be honest, be specific, and don't protect decisions that didn't hold up in practice.
 
@@ -17,11 +17,11 @@ This is a prototype skill set. Treat it accordingly — be honest, be specific, 
 
 ## Stage 1 — Orient
 
-When the user invokes **retro** (e.g. `/retro` in Cursor), ask them two things before doing anything:
+When the user invokes **SoftwareCycle_6_retro** (e.g. `/SoftwareCycle_6_retro` in Cursor), ask them two things before doing anything:
 
 **1. Which skills felt off?**
 
-> Which skills would you like me to focus on? You can name specific ones (e.g. **plan**, **review**), describe what felt wrong ("the handoff between implement and review was awkward"), or say "all of them" if you want a full sweep.
+> Which skills would you like me to focus on? You can name specific ones (e.g. **SoftwareCycle_2_plan**, **SoftwareCycle_4_review**), describe what felt wrong ("the handoff between SoftwareCycle_3_implement and SoftwareCycle_4_review was awkward"), or say "all of them" if you want a full sweep.
 
 **2. What happened?**
 
@@ -36,13 +36,13 @@ Wait for their response before proceeding. Do not assume which skills to evaluat
 Before evaluating, locate the artifacts produced during the cycle. These are the evidence of how the skills performed.
 
 Check **`.features/current/`** (active cycle) and any **archived** folders **`YYYY-MM-DD_Name/`** under **`.features/`** for:
-- `1_ProductRequirementsDocument*.md` — **ideate**
-- `2_Plan*.md` — **plan**
-- `3_Implementation*.md` — **implement**
-- `4_Review*.md` — **review**
-- `0_Overview*.md` — **document** (**only** skill that produces `0_Overview`)
+- `1_ProductRequirementsDocument*.md` — **SoftwareCycle_1_ideate**
+- `2_Plan*.md` — **SoftwareCycle_2_plan**
+- `3_Implementation*.md` — **SoftwareCycle_3_implement**
+- `4_Review*.md` — **SoftwareCycle_4_review**
+- `0_Overview*.md` — **SoftwareCycle_5_document** (**only** skill that produces `0_Overview`)
 
-Also check **`.features/`** for context maps — evidence of how **context-gathering** performed (context maps are **not** stored as `0_` in the feature folder).
+Also check **`.features/`** for context maps — evidence of how **SoftwareCycle_0_context-gathering** performed (context maps are **not** stored as `0_` in the feature folder).
 
 Legacy **`.cursor/docs/`** (or similar) trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
 

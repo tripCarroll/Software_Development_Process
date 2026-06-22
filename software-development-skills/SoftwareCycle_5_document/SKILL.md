@@ -1,11 +1,11 @@
 ---
-name: document
-description: Closes a feature cycle—resolves or creates .features/YYYY-MM-DD_FeatureName/, moves artifacts, removes .features/current (symlink or staging dir), writes 0_Overview.md, ensures artifacts 1–4 exist, updates .features/README.md. Use when the user runs /document (Cursor), archives a cycle, or consolidates feature artifacts (any host). Does not author 1_ProductRequirementsDocument through 4_Review.
+name: SoftwareCycle_5_document
+description: Closes a feature cycle—resolves or creates .features/YYYY-MM-DD_FeatureName/, moves artifacts, removes .features/current (symlink or staging dir), writes 0_Overview.md, ensures artifacts 1–4 exist, updates .features/README.md. Use when the user runs /SoftwareCycle_5_document (Cursor), archives a cycle, or consolidates feature artifacts (any host). Does not author 1_ProductRequirementsDocument through 4_Review.
 ---
 
 ## Portable usage (Cursor & Claude)
 
-**`/document`** = Cursor shorthand for this archiving workflow; same when the user asks to “close the cycle”, “write the overview”, or “archive `.features`.” **`[workspace-root]`** is the repository or project workspace root.
+**`/SoftwareCycle_5_document`** = Cursor shorthand for this archiving workflow; same when the user asks to “close the cycle”, “write the overview”, or “archive `.features`.” **`[workspace-root]`** is the repository or project workspace root.
 
 ---
 
@@ -25,7 +25,7 @@ You are acting as a technical archivist. **`0_Overview.md` is produced only by t
 - **Folder basename:** `DATE_SanitizedName` (e.g. `2026-03-28_OAuthRefresh`).
 - If `.features/DATE_SanitizedName` already exists and you must create a new distinct folder, append `_2`, `_3`, … until unused.
 
-**Path while executing:** Use the resolved **`TARGET_DIR`** below for all reads/writes and moves. **After this skill finishes, `.features/current` must not remain** — it is removed once artifacts live in `TARGET_DIR` (see Stage 1). The next cycle recreates `current` via **ideate** or the bootstrap steps in other pipeline skills.
+**Path while executing:** Use the resolved **`TARGET_DIR`** below for all reads/writes and moves. **After this skill finishes, `.features/current` must not remain** — it is removed once artifacts live in `TARGET_DIR` (see Stage 1). The next cycle recreates `current` via **SoftwareCycle_1_ideate** or the bootstrap steps in other pipeline skills.
 
 ---
 
@@ -34,10 +34,10 @@ You are acting as a technical archivist. **`0_Overview.md` is produced only by t
 | File | Producing skill |
 |------|-----------------|
 | `0_Overview.md` | **This skill only** — plain-English narrative of the cycle |
-| `1_ProductRequirementsDocument.md` | **ideate** |
-| `2_Plan.md` | **plan** |
-| `3_Implementation.md` | **implement** (variants: `3_Implementation_a.md`, …) |
-| `4_Review.md` | **review** (variants: `4_Review_a.md`, …) |
+| `1_ProductRequirementsDocument.md` | **SoftwareCycle_1_ideate** |
+| `2_Plan.md` | **SoftwareCycle_2_plan** |
+| `3_Implementation.md` | **SoftwareCycle_3_implement** (variants: `3_Implementation_a.md`, …) |
+| `4_Review.md` | **SoftwareCycle_4_review** (variants: `4_Review_a.md`, …) |
 
 **Versioning:** When writing **`0_Overview.md`**, if it already exists in `TARGET_DIR`, use the next free name: `0_Overview_a.md`, `0_Overview_b.md`, etc. (suffix **before** `.md`). Same pattern for any file this skill **creates** when a base name collides.
 
@@ -59,7 +59,7 @@ For artifacts **1–4**, versioning is owned by their producing skills; this ski
    - Compute **`DATE`**, sanitize to **`SanitizedName`**, set **`TARGET_DIR`** = `.features/DATE_SanitizedName` (with `_2`, `_3`, … disambiguation if that path already exists).
    - **Create** `TARGET_DIR` as a directory.
 
-4. **Optional `README.md` in `TARGET_DIR`:** If `TARGET_DIR` was **just created** and has no `README.md`, add one: line 1 human feature name, line 2 **Started:** `DATE`, line 3 note that numbered artifacts and `0_Overview.md` live here and that **document** consolidated the cycle.
+4. **Optional `README.md` in `TARGET_DIR`:** If `TARGET_DIR` was **just created** and has no `README.md`, add one: line 1 human feature name, line 2 **Started:** `DATE`, line 3 note that numbered artifacts and `0_Overview.md` live here and that **SoftwareCycle_5_document** consolidated the cycle.
 
 ---
 
@@ -143,7 +143,7 @@ This is the only numbered artifact **authored** here. Use the structure below. S
 
 ## Review findings & resolutions
 
-[What the review skill found; fixed, deferred, or accepted — or state that no review ran.]
+[What the SoftwareCycle_4_review skill found; fixed, deferred, or accepted — or state that no review ran.]
 
 ---
 
@@ -174,14 +174,14 @@ After saving, confirm:
 
 Maintain **`.features/README.md`** at the workspace root (create if missing).
 
-The index lists **completed** folders (`YYYY-MM-DD_Name`) and states that **there is no active cycle** until someone runs **ideate** (or another skill’s bootstrap), which recreates **`.features/current/`**.
+The index lists **completed** folders (`YYYY-MM-DD_Name`) and states that **there is no active cycle** until someone runs **SoftwareCycle_1_ideate** (or another skill’s bootstrap), which recreates **`.features/current/`**.
 
 **Structure:**
 
 ```markdown
 # Feature cycles index
 
-Active work in progress: **none** (after **document**, `.features/current` is removed; the next cycle recreates it via **ideate** or bootstrap)
+Active work in progress: **none** (after **SoftwareCycle_5_document**, `.features/current` is removed; the next cycle recreates it via **SoftwareCycle_1_ideate** or bootstrap)
 
 ---
 
@@ -228,7 +228,7 @@ Reply **"approved"** to close out this cycle, or tell me what to adjust.
 
 ## Rules
 
-- **`0_Overview`** is **only** produced by **document** (e.g. `/document` in Cursor).
+- **`0_Overview`** is **only** produced by **SoftwareCycle_5_document** (e.g. `/SoftwareCycle_5_document` in Cursor).
 - Never fabricate missing PRD/plan/implementation/review text — note gaps in the overview and sign-off.
 - **Always** run Stage 0–1 so the cycle has a **dated project folder** and artifacts are **inside** it; **remove `.features/current`** when step 5 allows — do not leave an active `current` pointing at an archived cycle after this skill completes.
 - Prefer **next-free** version suffixes `_a`, `_b`, `_c` **before** `.md`.

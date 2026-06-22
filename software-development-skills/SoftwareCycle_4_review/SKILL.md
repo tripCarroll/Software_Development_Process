@@ -1,11 +1,11 @@
 ---
-name: review
-description: Performs a second-agent cold read of a completed implementation against the PRD, plan, and implementation summary, with a full checklist (correctness, patterns, edge cases, tests, security, performance, accessibility) and severity-ranked findings; writes 4_Review.md. Use when the user runs /review (Cursor), asks for a formal code review, quality gate, or cold-read before document (any host).
+name: SoftwareCycle_4_review
+description: Performs a second-agent cold read of a completed implementation against the PRD, plan, and implementation summary, with a full checklist (correctness, patterns, edge cases, tests, security, performance, accessibility) and severity-ranked findings; writes 4_Review.md. Use when the user runs /SoftwareCycle_4_review (Cursor), asks for a formal code review, quality gate, or cold-read before document (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
 
-**`/review`** = Cursor shorthand; same intent for “cold review” or “quality gate before documentation.” Prefer a **fresh session** (see below). **`[workspace-root]`** is the repo/project root.
+**`/SoftwareCycle_4_review`** = Cursor shorthand; same intent for “cold review” or “quality gate before documentation.” Prefer a **fresh session** (see below). **`[workspace-root]`** is the repo/project root.
 
 ---
 
@@ -25,7 +25,7 @@ You are not here to approve work. You are here to find what could be better, wro
 
 After the review is complete (after Stage 5 sign-off block in chat), write the **full review report** to **`.features/current/4_Review.md`**, or the next free variant (`4_Review_a.md`, `_b`, …) if the base file already exists.
 
-If **`current/`** is missing or invalid, **bootstrap** (same as **ideate**): create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
+If **`current/`** is missing or invalid, **bootstrap** (same as **SoftwareCycle_1_ideate**): create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 
@@ -214,7 +214,7 @@ Please address any issues you intend to fix, then confirm when ready to proceed:
 - [ ] Major issues triaged — fix, defer, or accept each one
 - [ ] Minor issues and suggestions reviewed
 
-Reply **"approved"** to move to **document** (e.g. `/document` in Cursor), or tell me which issues you've addressed so I can note them.
+Reply **"approved"** to move to **SoftwareCycle_5_document** (e.g. `/SoftwareCycle_5_document` in Cursor), or tell me which issues you've addressed so I can note them.
 
 ---
 

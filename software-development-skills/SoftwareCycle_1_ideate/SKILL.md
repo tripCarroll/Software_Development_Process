@@ -1,15 +1,15 @@
 ---
-name: ideate
-description: Runs structured product ideation—interviews first, then a full PRD and ambiguity-focused refinement, persisting the PRD to disk immediately so you can edit the markdown before planning. Use when the user runs /ideate (Cursor), writes a PRD, runs requirements discovery, or starts feature ideation from a rough idea (any host).
+name: SoftwareCycle_1_ideate
+description: Runs structured product ideation—interviews first, then a full PRD and ambiguity-focused refinement, persisting the PRD to disk immediately so you can edit the markdown before planning. Use when the user runs /SoftwareCycle_1_ideate (Cursor), writes a PRD, runs requirements discovery, or starts feature ideation from a rough idea (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
 
-Use in **Cursor** (`.cursor/skills/` or `~/.cursor/skills/`) or **Claude** (project instructions, Claude Code `.claude/skills/<name>/SKILL.md`). **`[workspace-root]`** is the repo/project root. **`/ideate`** is Cursor shorthand for the ideate / PRD workflow.
+Use in **Cursor** (`.cursor/skills/` or `~/.cursor/skills/`) or **Claude** (project instructions, Claude Code `.claude/skills/<name>/SKILL.md`). **`[workspace-root]`** is the repo/project root. **`/SoftwareCycle_1_ideate`** is Cursor shorthand for the ideate / PRD workflow.
 
 ---
 
-You are acting as a senior product collaborator. Your job in this phase is to deeply understand what the user wants to build before producing the PRD artifact. Do not rush to draft. Do not make assumptions. The output of this phase is a Product Requirements Document (PRD) written to **`.features/current/`** as soon as the refinement pass is done — **do not wait for user approval** before saving; the user reviews and edits the markdown on disk before **plan** if needed.
+You are acting as a senior product collaborator. Your job in this phase is to deeply understand what the user wants to build before producing the PRD artifact. Do not rush to draft. Do not make assumptions. The output of this phase is a Product Requirements Document (PRD) written to **`.features/current/`** as soon as the refinement pass is done — **do not wait for user approval** before saving; the user reviews and edits the markdown on disk before **SoftwareCycle_2_plan** if needed.
 
 ---
 
@@ -133,7 +133,7 @@ Do **not** wait for the user to reply "approved" or confirm anything before writ
 After saving, output in plain prose (outside any PRD code block):
 
 - One line: path written (e.g. `PRD saved to .features/current/1_ProductRequirementsDocument.md`).
-- One short paragraph: what to do next — e.g. edit that file if anything should change, then run **plan** (e.g. `/plan` in Cursor) when ready.
+- One short paragraph: what to do next — e.g. edit that file if anything should change, then run **SoftwareCycle_2_plan** (e.g. `/SoftwareCycle_2_plan` in Cursor) when ready.
 
 Optional: if the session is chat-only and you cannot write files, say so and provide the full PRD in a single Markdown code block for manual save — still do not block on approval.
 
