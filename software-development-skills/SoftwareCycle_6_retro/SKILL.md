@@ -35,16 +35,16 @@ Wait for their response before proceeding. Do not assume which skills to evaluat
 
 Before evaluating, locate the artifacts produced during the cycle. These are the evidence of how the skills performed.
 
-Check **`.features/current/`** (active cycle) and any **archived** folders **`YYYY-MM-DD_Name/`** under **`.features/`** for:
+Check **`.docs/features/current/`** (active cycle) and any **archived** folders **`YYYY-MM-DD_Name/`** under **`.docs/features/`** for:
 - `1_ProductRequirementsDocument*.md` — **SoftwareCycle_1_ideate**
 - `2_Plan*.md` — **SoftwareCycle_2_plan**
 - `3_Implementation*.md` — **SoftwareCycle_3_implement**
 - `4_Review*.md` — **SoftwareCycle_4_review**
 - `0_Overview*.md` — **SoftwareCycle_5_document** (**only** skill that produces `0_Overview`)
 
-Also check **`.features/`** for context maps — evidence of how **SoftwareCycle_0_context-gathering** performed (context maps are **not** stored as `0_` in the feature folder).
+Also check **`.docs/features/`** for context maps — evidence of how **SoftwareCycle_0_context-gathering** performed (context maps are **not** stored as `0_` in the feature folder).
 
-Legacy **`.cursor/docs/`** (or similar) trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
+Legacy **`.features/`**, **`.cursor/docs/`** (or similar) trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
 
 Also ask the user if there's anything specific they noticed during the cycle that isn't captured in the artifacts — moments where the agent got confused, ignored instructions, asked unnecessary questions, produced something wrong, or missed something important. Their live experience is evidence too.
 

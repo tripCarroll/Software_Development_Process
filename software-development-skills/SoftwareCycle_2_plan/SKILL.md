@@ -17,9 +17,9 @@ Do not over-engineer the plan. Do not invent sections the work doesn't need. The
 
 ## Feature artifact root
 
-Save the final plan to **`[workspace-root]/.features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
+Save the final plan to **`[workspace-root]/.docs/features/current/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
 
-If **`.features/current/`** is missing or invalid, **bootstrap** (same as **SoftwareCycle_1_ideate**): create **`.features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.features/`**, run **`ln -sfn DATE_SanitizedName current`**.
+If **`.docs/features/current/`** is missing or invalid, **bootstrap** (same as **SoftwareCycle_1_ideate**): create **`.docs/features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.docs/features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.docs/features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 
@@ -28,7 +28,7 @@ If **`.features/current/`** is missing or invalid, **bootstrap** (same as **Soft
 Before planning, locate and load the following if available:
 
 **PRD**
-Look for a PRD in the conversation context, then on disk at **`.features/current/1_ProductRequirementsDocument.md`** (or `1_ProductRequirementsDocument_a.md`, etc. — prefer the **latest** variant if multiple exist, or the one the user points to). Legacy paths (e.g. `.cursor/docs/`, `PRD-*.md`) may be used only as fallback.
+Look for a PRD in the conversation context, then on disk at **`.docs/features/current/1_ProductRequirementsDocument.md`** (or `1_ProductRequirementsDocument_a.md`, etc. — prefer the **latest** variant if multiple exist, or the one the user points to). Legacy paths (e.g. `.features/`, `.cursor/docs/`, `PRD-*.md`) may be used only as fallback.
 
 If not found, warn the user:
 
@@ -208,7 +208,7 @@ Before we move to implementation, please confirm:
 
 Reply **"approved"** to move to **SoftwareCycle_3_implement** (e.g. `/SoftwareCycle_3_implement` in Cursor), or tell me what to adjust.
 
-**After the user replies `approved`:** Write the **final revised plan** (post–refinement pass) to **`.features/current/2_Plan.md`**, or the next free `2_Plan_*.md` variant. Confirm the path in one line.
+**After the user replies `approved`:** Write the **final revised plan** (post–refinement pass) to **`.docs/features/current/2_Plan.md`**, or the next free `2_Plan_*.md` variant. Confirm the path in one line.
 
 ---
 
@@ -218,6 +218,6 @@ Reply **"approved"** to move to **SoftwareCycle_3_implement** (e.g. `/SoftwareCy
 - Omit any section that has nothing meaningful to say — placeholder sections with "N/A" are noise
 - Use `##` for sections, `###` for subsections, `- [ ]` for tasks
 - No emojis, no filler phrases
-- On disk, save as **`2_Plan*.md`** under **`.features/current/`** (not `PLAN-[kebab].md` at repo root)
+- On disk, save as **`2_Plan*.md`** under **`.docs/features/current/`** (not `PLAN-[kebab].md` at repo root)
 - Complexity estimates go inline with each task: `- [ ] Add keyboard event handler — S`
 - Deferrable tasks go inline: `- [ ] Animate open/close transition — S — [deferrable]`

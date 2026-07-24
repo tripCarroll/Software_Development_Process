@@ -1,6 +1,6 @@
 ---
 name: SoftwareCycle_0_context-gathering
-description: Scans a focused codebase area and writes a structured context map to .features/ so downstream ideation, planning, and implementation stay grounded. Use when the user runs /SoftwareCycle_0_context-gathering (Cursor), asks to map a path or domain, or wants context exploration before other pipeline skills (any host).
+description: Scans a focused codebase area and writes a structured context map to .docs/features/ so downstream ideation, planning, and implementation stay grounded. Use when the user runs /SoftwareCycle_0_context-gathering (Cursor), asks to map a path or domain, or wants context exploration before other pipeline skills (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
@@ -15,7 +15,7 @@ You are acting as a codebase analyst. Your job is to scan a focused area of the 
 
 This is not a summary for the user to read. It is working memory for the agent. Write it accordingly: precise, structured, and scannable. Every statement should be something a downstream skill could act on.
 
-**Numbered feature artifacts:** Do **not** save context maps into **`.features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by the SoftwareCycle_5_document skill.** Context maps belong under **`.features/`** only (see Stage 4).
+**Numbered feature artifacts:** Do **not** save context maps into **`.docs/features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by the SoftwareCycle_5_document skill.** Context maps belong under **`.docs/features/`** only (see Stage 4).
 
 ---
 
@@ -151,16 +151,16 @@ The following context is now active for this session:
 Save the context map to:
 
 ```
-.features/current/context-map-[kebab-area-name].md
+.docs/features/current/context-map-[kebab-area-name].md
 ```
 
-Create the `.features/` directory if it doesn't exist.
+Create the `.docs/features/` directory if it doesn't exist.
 
 **Do not wait for user approval** before saving. As soon as the map content is complete, write the file in the same turn. The user reviews and edits the markdown on disk if they want changes.
 
 After saving, output a short confirmation in plain prose — not the full map again. Example:
 
-> Context map saved to `.features/current/context-map-button.md`.  
+> Context map saved to `.docs/features/current/context-map-button.md`.  
 > Active context: Lit + TypeScript Web Components project. Button component follows a 4-file pattern with strict TypeScript and CSS custom property tokens. Shadow DOM encapsulation is a known constraint. Ready for **SoftwareCycle_1_ideate** or **SoftwareCycle_2_plan**.
 
 The full map is on disk. The confirmation is what loads into context — keep it dense and usable.
