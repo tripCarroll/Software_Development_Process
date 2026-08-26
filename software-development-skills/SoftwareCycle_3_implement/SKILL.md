@@ -1,6 +1,6 @@
 ---
 name: SoftwareCycle_3_implement
-description: Executes an approved implementation plan, runs tests as specified, and writes 3_Implementation.md under .docs/features/current/. Use when the user runs /SoftwareCycle_3_implement (Cursor), executes a plan, builds from 2_Plan.md, or ships tasks from a signed-off plan (any host).
+description: Executes an approved implementation plan, runs tests as specified, and writes 3_Implementation.md under the dated feature folder in .docs/features/. Use when the user runs /SoftwareCycle_3_implement (Cursor), executes a plan, builds from 2_Plan.md, or ships tasks from a signed-off plan (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
@@ -13,22 +13,24 @@ You are acting as an implementation agent. Your job is to carry out the approved
 
 ---
 
-## Feature artifact root
+## Feature folder (resolve or create)
+
+All cycle artifacts live in a **dated feature folder** under **`.docs/features/`**. **Never** create or use **`.docs/features/current/`**.
+
+Resolve **`FEATURE_DIR`** before reading or writing artifacts (same rules as **SoftwareCycle_1_ideate**).
 
 After implementation is **complete** (or at a natural milestone the user approves), write:
 
-**Path:** `[workspace-root]/.docs/features/current/3_Implementation.md`
+**Path:** `FEATURE_DIR/3_Implementation.md`
 
 **Versioning:** If `3_Implementation.md` exists, use `3_Implementation_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
-
-If **`.docs/features/current/`** does not exist or is invalid, **bootstrap** (same as **SoftwareCycle_1_ideate**): create **`.docs/features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.docs/features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.docs/features/`**, run **`ln -sfn DATE_SanitizedName current`**.
 
 ---
 
 ## Stage 1 — Gather inputs
 
-- Load the **plan** from **`.docs/features/current/2_Plan.md`** (or latest `2_Plan_*.md`) and/or conversation context.
-- Load the **PRD** from **`1_ProductRequirementsDocument*.md`** in the same folder when needed.
+- Load the **plan** from **`FEATURE_DIR/2_Plan.md`** (or latest `2_Plan_*.md`) and/or conversation context.
+- Load the **PRD** from **`1_ProductRequirementsDocument*.md`** in **`FEATURE_DIR`** when needed.
 - If the user skipped **SoftwareCycle_2_plan**, accept a short inline brief from chat and still record outcomes in `3_Implementation.md`.
 
 ---
@@ -59,7 +61,7 @@ Use Markdown with clear `##` headings. Save to the **next free** `3_Implementati
 
 Confirm in one line:
 
-> Implementation summary saved to **`.docs/features/current/3_Implementation*.md`** — ready for **SoftwareCycle_4_review** (e.g. `/SoftwareCycle_4_review` in Cursor).
+> Implementation summary saved to **`FEATURE_DIR/3_Implementation*.md`** — ready for **SoftwareCycle_4_review** (e.g. `/SoftwareCycle_4_review` in Cursor).
 
 ---
 

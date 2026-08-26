@@ -15,17 +15,19 @@ You are not here to approve work. You are here to find what could be better, wro
 
 ---
 
-## Feature artifact root
+## Feature folder (resolve or create)
 
-**Prefer inputs from disk:** `[workspace-root]/.docs/features/current/`
+All cycle artifacts live in a **dated feature folder** under **`.docs/features/`**. **Never** create or use **`.docs/features/current/`**.
+
+Resolve **`FEATURE_DIR`** before reading or writing artifacts (same rules as **SoftwareCycle_1_ideate**).
+
+**Prefer inputs from disk:** `FEATURE_DIR/`
 
 - **PRD:** `1_ProductRequirementsDocument*.md`
 - **Plan:** `2_Plan*.md`
 - **Implementation summary:** `3_Implementation*.md` (latest variant if multiple)
 
-After the review is complete (after Stage 5 sign-off block in chat), write the **full review report** to **`.docs/features/current/4_Review.md`**, or the next free variant (`4_Review_a.md`, `_b`, …) if the base file already exists.
-
-If **`current/`** is missing or invalid, **bootstrap** (same as **SoftwareCycle_1_ideate**): create **`.docs/features/`** if needed; **`DATE`** + **`SanitizedName`** → **`.docs/features/DATE_SanitizedName/`** (with `_2`, `_3`, … if the basename is taken); from inside **`.docs/features/`**, run **`ln -sfn DATE_SanitizedName current`**.
+After the review is complete (after Stage 5 sign-off block in chat), write the **full review report** to **`FEATURE_DIR/4_Review.md`**, or the next free variant (`4_Review_a.md`, `_b`, …) if the base file already exists.
 
 ---
 
@@ -34,14 +36,14 @@ If **`current/`** is missing or invalid, **bootstrap** (same as **SoftwareCycle_
 This skill is designed to run in a **fresh conversation** — a new chat or session with **no prior context** from the ideation or implementation work. This is intentional. A cold read produces a better review.
 
 To use it, start a **new** Cursor chat, Claude conversation, or Claude Code session and provide:
-1. The PRD (paste contents or path under **`.docs/features/current/1_ProductRequirementsDocument*.md`**)
-2. The implementation plan (paste or **`2_Plan*.md`**)
-3. The implementation summary (paste or **`3_Implementation*.md`**)
+1. The PRD (paste contents or path under **`FEATURE_DIR/1_ProductRequirementsDocument*.md`**)
+2. The implementation plan (paste or **`FEATURE_DIR/2_Plan*.md`**)
+3. The implementation summary (paste or **`FEATURE_DIR/3_Implementation*.md`**)
 4. The code to review (paste the diff, or reference the files/paths to examine)
 
 If any of these are missing, note what's absent and proceed with what's available. A review without a PRD can still check code quality, patterns, and tests. A review without code cannot proceed — stop and ask.
 
-**After presenting findings and the sign-off block:** Save the same report to **`4_Review*.md`** in **`current/`** (next free suffix).
+**After presenting findings and the sign-off block:** Save the same report to **`4_Review*.md`** in **`FEATURE_DIR`** (next free suffix).
 
 ---
 

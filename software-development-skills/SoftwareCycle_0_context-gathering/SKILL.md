@@ -15,7 +15,7 @@ You are acting as a codebase analyst. Your job is to scan a focused area of the 
 
 This is not a summary for the user to read. It is working memory for the agent. Write it accordingly: precise, structured, and scannable. Every statement should be something a downstream skill could act on.
 
-**Numbered feature artifacts:** Do **not** save context maps into **`.docs/features/current/`** as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by the SoftwareCycle_5_document skill.** Context maps belong under **`.docs/features/`** only (see Stage 4).
+**Numbered feature artifacts:** Do **not** save context maps as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by the SoftwareCycle_5_document skill.** Save context maps as `notes-[kebab-area-name].md` in the **active feature folder** (see Stage 0).
 
 ---
 
@@ -29,6 +29,28 @@ The user will invoke this skill with a focus area. Examples:
 - Whole project — see scope guidance below (e.g. focus `.`)
 
 If no area is specified, ask before scanning: "What area should I focus on? A path, a feature domain, or a concept?"
+
+---
+
+## Stage 0 — Feature folder (resolve or create)
+
+Resolve **`FEATURE_DIR`** before scanning. Context maps are saved **inside the dated feature folder** — never under **`.docs/features/current/`**.
+
+**Save path:** `[workspace-root]/.docs/features/YYYY-MM-DD_SanitizedName/notes-[kebab-area-name].md`
+
+1. Ensure **`.docs/features/`** exists (create if missing).
+2. If the user or conversation names a folder under **`.docs/features/`** matching **`^\d{4}-\d{2}-\d{2}_.+`**, set **`FEATURE_DIR`** to it — **stop Stage 0** and continue to Stage 1.
+3. Else, list subdirectories of **`.docs/features/`** matching **`^\d{4}-\d{2}-\d{2}_.+`**:
+   - If **exactly one** exists, set **`FEATURE_DIR`** to it — **stop Stage 0**.
+   - If **multiple** exist, prefer the one **most recently modified** that lacks **`0_Overview.md`** (cycle still in progress). If still ambiguous, **ask the user** which folder — do not guess.
+4. If **no** matching folder exists: **ask the user:** *"What should we name this feature? (Used for the folder `YYYY-MM-DD_<name>`.)"* **Do not scan until the user replies.**
+5. **Create** **`FEATURE_DIR`** from the user's answer (same convention as **SoftwareCycle_1_ideate**):
+   - **`DATE`:** `YYYY-MM-DD` (prefer session **"today"**).
+   - **`SanitizedName`:** from the feature name — allow letters, numbers, hyphen, underscore; spaces → `_`; strip or replace other characters; fallback `feature`.
+   - If **`.docs/features/DATE_SanitizedName`** already exists and you need a new distinct folder, append `_2`, `_3`, … until unused.
+   - **`mkdir -p FEATURE_DIR`**. Do **not** create **`.docs/features/current/`**.
+
+**Legacy:** If **`.docs/features/current`** is a symlink to a dated folder, use that folder as **`FEATURE_DIR`** for this session only — do not create new `current` symlinks.
 
 ---
 
@@ -148,19 +170,21 @@ The following context is now active for this session:
 
 ## Stage 4 — Save and confirm
 
-Save the context map to:
+Save the context map to **`FEATURE_DIR`** (Stage 0 must be complete):
 
 ```
-.docs/features/current/context-map-[kebab-area-name].md
+.docs/features/YYYY-MM-DD_SanitizedName/notes-[kebab-area-name].md
 ```
 
-Create the `.docs/features/` directory if it doesn't exist.
+**If the file already exists:** read it first, then **append** the new context map — do not overwrite prior content and do not create `_a`, `_b`, or other variant filenames. Separate scans with a horizontal rule (`---`), then the full Stage 3 map for the new scan (each scan gets its own `# Context map: [Area name]` heading and **Scanned** timestamp).
 
-**Do not wait for user approval** before saving. As soon as the map content is complete, write the file in the same turn. The user reviews and edits the markdown on disk if they want changes.
+**If the file does not exist:** write the Stage 3 map as the full file contents.
+
+**Do not wait for user approval** before saving. As soon as the map content is complete, write or append in the same turn. The user reviews and edits the markdown on disk if they want changes.
 
 After saving, output a short confirmation in plain prose — not the full map again. Example:
 
-> Context map saved to `.docs/features/current/context-map-button.md`.  
+> Context appended to `.docs/features/2026-08-20_button-refactor/notes-button.md`.  
 > Active context: Lit + TypeScript Web Components project. Button component follows a 4-file pattern with strict TypeScript and CSS custom property tokens. Shadow DOM encapsulation is a known constraint. Ready for **SoftwareCycle_1_ideate** or **SoftwareCycle_2_plan**.
 
 The full map is on disk. The confirmation is what loads into context — keep it dense and usable.
@@ -172,6 +196,6 @@ The full map is on disk. The confirmation is what loads into context — keep it
 - Never invent or infer things you didn't find. If something is unclear, put it in Gaps & unknowns.
 - Do not summarize every file — surface what's meaningful for a developer about to add or change something.
 - If a pattern is inconsistent, say so explicitly. Downstream skills need to know whether to follow the pattern or flag it.
-- Do not ask the user questions during the scan unless the scope is genuinely ambiguous before you start.
-- **Persist without approval:** write the context map file as soon as it is ready; do not ask the user to confirm before saving.
-- Always re-scan fresh — do not rely on prior context map files from previous sessions, even if they exist on disk.
+- Ask the user only when required: **feature name** (Stage 0, if no active folder) or **scan scope** (Invocation, if no area given). Do not ask other questions during the scan unless scope is genuinely ambiguous.
+- **Persist without approval:** write the context map file as soon as it is ready; do not ask the user to confirm the map before saving (feature naming in Stage 0 is separate).
+- Always re-scan the codebase fresh — do not skip scanning because prior notes exist on disk; append the new scan to the existing **`notes-[kebab-area-name].md`** file when present.

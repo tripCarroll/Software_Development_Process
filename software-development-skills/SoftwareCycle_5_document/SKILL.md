@@ -1,6 +1,6 @@
 ---
 name: SoftwareCycle_5_document
-description: Closes a feature cycle—resolves or creates .docs/features/YYYY-MM-DD_FeatureName/, moves artifacts, removes .docs/features/current (symlink or staging dir), writes 0_Overview.md, ensures artifacts 1–4 exist, updates .docs/features/README.md. Use when the user runs /SoftwareCycle_5_document (Cursor), archives a cycle, or consolidates feature artifacts (any host). Does not author 1_ProductRequirementsDocument through 4_Review.
+description: Closes a feature cycle—resolves or creates .docs/features/YYYY-MM-DD_FeatureName/, writes 0_Overview.md, ensures artifacts 1–4 exist, updates .docs/features/README.md. Use when the user runs /SoftwareCycle_5_document (Cursor), archives a cycle, or consolidates feature artifacts (any host). Does not author 1_ProductRequirementsDocument through 4_Review.
 ---
 
 ## Portable usage (Cursor & Claude)
@@ -9,7 +9,9 @@ description: Closes a feature cycle—resolves or creates .docs/features/YYYY-MM
 
 ---
 
-You are acting as a technical archivist. **`0_Overview.md` is produced only by this skill.** Other artifacts (`1_ProductRequirementsDocument.md` … `4_Review.md`) should already exist from earlier skills; this skill **resolves the durable project folder**, **moves** in-progress artifacts into it when needed, **removes `.docs/features/current`** after consolidation, **ensures** numbered files are there, fills gaps from conversation context when possible, and writes the overview.
+You are acting as a technical archivist. **`0_Overview.md` is produced only by this skill.** Other artifacts (`1_ProductRequirementsDocument.md` … `4_Review.md`) should already exist from earlier skills; this skill **resolves the feature folder**, **ensures** numbered files are there, fills gaps from conversation context when possible, and writes the overview.
+
+**Never** create or use **`.docs/features/current/`**. All artifacts live directly in the dated feature folder.
 
 ---
 
@@ -25,7 +27,7 @@ You are acting as a technical archivist. **`0_Overview.md` is produced only by t
 - **Folder basename:** `DATE_SanitizedName` (e.g. `2026-03-28_OAuthRefresh`).
 - If `.docs/features/DATE_SanitizedName` already exists and you must create a new distinct folder, append `_2`, `_3`, … until unused.
 
-**Path while executing:** Use the resolved **`TARGET_DIR`** below for all reads/writes and moves. **After this skill finishes, `.docs/features/current` must not remain** — it is removed once artifacts live in `TARGET_DIR` (see Stage 1). The next cycle recreates `current` via **SoftwareCycle_1_ideate** or the bootstrap steps in other pipeline skills.
+**Path while executing:** Use the resolved **`TARGET_DIR`** below for all reads/writes. Each cycle uses one dated folder — there is no separate `current` staging area.
 
 ---
 
@@ -41,53 +43,34 @@ You are acting as a technical archivist. **`0_Overview.md` is produced only by t
 
 **Versioning:** When writing **`0_Overview.md`**, if it already exists in `TARGET_DIR`, use the next free name: `0_Overview_a.md`, `0_Overview_b.md`, etc. (suffix **before** `.md`). Same pattern for any file this skill **creates** when a base name collides.
 
-For artifacts **1–4**, versioning is owned by their producing skills; this skill does not rename them except when consolidating into `TARGET_DIR` with the next free variant.
+For artifacts **1–4**, versioning is owned by their producing skills; this skill does not rename them except when backfilling with the next free variant.
 
 ---
 
-## Stage 0 — Resolve or create the project folder (`TARGET_DIR`)
+## Stage 0 — Resolve or create the feature folder (`TARGET_DIR`)
 
 1. Ensure **`.docs/features/`** exists (create if missing). Workspace root = repository or project workspace root.
 
-2. **Search** for an existing project folder:
-   - If **`.docs/features/current`** is a **symbolic link**, resolve it (real path). If the target is a **directory** under `.docs/features/` whose basename matches **`^\d{4}-\d{2}-\d{2}_.+`**, set **`TARGET_DIR`** to that directory and **stop** Stage 0 (folder already exists).
-   - Else, **list** subdirectories of `.docs/features/` whose names match **`^\d{4}-\d{2}-\d{2}_.+`**. If the user or conversation clearly names one matching folder (same slug), you may set **`TARGET_DIR`** to it. If **none** match or **multiple** could apply and the user has not confirmed, **do not guess** — continue to step 3.
+2. **Search** for the feature folder (same rules as **SoftwareCycle_1_ideate**):
+   - If the user or conversation names a folder matching **`^\d{4}-\d{2}-\d{2}_.+`**, set **`TARGET_DIR`** — stop.
+   - Else list dated subdirectories: if **exactly one** exists, use it; if **multiple** exist, prefer the most recently modified folder lacking **`0_Overview.md`**, or **ask the user** if ambiguous.
+   - **Legacy:** If **`.docs/features/current`** is a symlink to a dated folder, use that folder as **`TARGET_DIR`** for this cycle.
 
-3. **If `TARGET_DIR` is not set** (no matching folder found or ambiguous):
+3. **If `TARGET_DIR` is not set:**
    - **Ask the user:** *What would you like to name this project?* (short label is fine; it becomes `DATE_SanitizedName` after the date prefix.)
    - Unless they already gave an explicit name in the same message — then use that.
    - Compute **`DATE`**, sanitize to **`SanitizedName`**, set **`TARGET_DIR`** = `.docs/features/DATE_SanitizedName` (with `_2`, `_3`, … disambiguation if that path already exists).
-   - **Create** `TARGET_DIR` as a directory.
+   - **`mkdir -p TARGET_DIR`**. Do **not** create a `current` symlink.
 
-4. **Optional `README.md` in `TARGET_DIR`:** If `TARGET_DIR` was **just created** and has no `README.md`, add one: line 1 human feature name, line 2 **Started:** `DATE`, line 3 note that numbered artifacts and `0_Overview.md` live here and that **SoftwareCycle_5_document** consolidated the cycle.
+4. **Optional `README.md` in `TARGET_DIR`:** If `TARGET_DIR` was **just created** and has no `README.md`, add one: line 1 human feature name, line 2 **Started:** `DATE`, line 3 note that numbered artifacts and `0_Overview.md` live here.
 
----
-
-## Stage 1 — Move all artifacts into `TARGET_DIR`
-
-**Goal:** Every file for this cycle that belongs in the numbered set (and any `README.md` from the cycle) should live **inside** `TARGET_DIR`. When done, **remove `.docs/features/current`** so the archived cycle exists only under the dated folder.
-
-1. **If `.docs/features/current` is a symlink** whose target **is** `TARGET_DIR` (same resolved path): artifacts are already in the right place; **skip** moving (only verify in later stages).
-
-2. **If `.docs/features/current` is a plain directory** (not a symlink) **and** its resolved path is **not** the same as `TARGET_DIR`:
-   - **Move** (not copy) into `TARGET_DIR` every relevant file: `0_*.md` through `4_*.md`, `README.md` if present, and any other obvious cycle artifacts in that directory. **Do not** move unrelated dotfiles or non-cycle content without user confirmation.
-
-3. **If `current` did not exist** and artifacts only exist under **`TARGET_DIR`** after creation: nothing to move from `current`.
-
-4. **If** numbered artifacts exist **only** under another path (e.g. legacy `.features/`, `.cursor/docs/`, or a wrongly named folder under `docs/features/`), **move or copy** them into `TARGET_DIR` using the **next free** variant names where collisions occur; prefer **move** when the source is clearly a duplicate staging area.
-
-5. **Remove `.docs/features/current` when safe** (after steps 1–4):
-   - If **`current` is a symlink** (including one pointing at `TARGET_DIR`): **delete** the symlink only (e.g. `rm .docs/features/current`). Do **not** delete contents inside `TARGET_DIR`.
-   - If **`current` is a plain directory**: if **empty** after step 2’s moves, **`rmdir`**; if **not empty**, **report** what remains and **do not** delete the directory without user confirmation.
-   - If **`current` does not exist**: nothing to remove.
-
-After Stage 1, **`TARGET_DIR`** is the single canonical folder for this cycle’s artifacts and **`.docs/features/current` should be absent** until a new cycle bootstraps it.
+5. **Legacy cleanup:** If **`.docs/features/current`** is a symlink whose target is **`TARGET_DIR`**, delete the symlink after artifacts are verified (e.g. `rm .docs/features/current`). Do not delete folder contents.
 
 ---
 
-## Stage 2 — Collect inputs
+## Stage 1 — Collect inputs
 
-1. Open **`TARGET_DIR`** (Stage 1 should have removed `.docs/features/current`; do not rely on it).
+1. Open **`TARGET_DIR`**.
 2. Check which of these exist (including suffixed variants `*_a.md`, `*_b.md`, …):
    - `1_ProductRequirementsDocument*.md`
    - `2_Plan*.md`
@@ -174,22 +157,21 @@ After saving, confirm:
 
 Maintain **`.docs/features/README.md`** at the workspace root (create if missing).
 
-The index lists **completed** folders (`YYYY-MM-DD_Name`) and states that **there is no active cycle** until someone runs **SoftwareCycle_1_ideate** (or another skill’s bootstrap), which recreates **`.docs/features/current/`**.
+The index lists feature cycle folders (`YYYY-MM-DD_Name`). A cycle is **in progress** when its folder exists but lacks **`0_Overview.md`**; **completed** once **`0_Overview.md`** is written.
 
 **Structure:**
 
 ```markdown
 # Feature cycles index
 
-Active work in progress: **none** (after **SoftwareCycle_5_document**, `.docs/features/current` is removed; the next cycle recreates it via **SoftwareCycle_1_ideate** or bootstrap)
-
 ---
 
-## Archived cycles
+## Feature cycles
 
 ### YYYY-MM-DD_FeatureSlug
 **Folder:** `.docs/features/YYYY-MM-DD_FeatureSlug/`  
-**Summary:** [1–2 sentences]
+**Status:** In progress | Completed  
+**Summary:** [1–2 sentences when completed]
 
 ---
 ```
@@ -208,7 +190,7 @@ End with:
 
 **Documentation complete.**
 
-The following have been saved under **`.docs/features/<DATE>_<SanitizedName>/`** (the **`.docs/features/current`** symlink or folder was removed after consolidation):
+The following have been saved under **`.docs/features/<DATE>_<SanitizedName>/`**:
 
 - **`0_Overview*.md`** — plain English narrative (**this skill only**)
 - **`1_ProductRequirementsDocument*.md`** — present or noted missing
@@ -230,5 +212,6 @@ Reply **"approved"** to close out this cycle, or tell me what to adjust.
 
 - **`0_Overview`** is **only** produced by **SoftwareCycle_5_document** (e.g. `/SoftwareCycle_5_document` in Cursor).
 - Never fabricate missing PRD/plan/implementation/review text — note gaps in the overview and sign-off.
-- **Always** run Stage 0–1 so the cycle has a **dated project folder** and artifacts are **inside** it; **remove `.docs/features/current`** when step 5 allows — do not leave an active `current` pointing at an archived cycle after this skill completes.
+- **Always** run Stage 0 so the cycle has a **dated feature folder** and artifacts live **inside** it. **Never** create **`.docs/features/current/`**.
+- **Legacy:** Remove an existing **`current`** symlink after consolidating into **`TARGET_DIR`** (Stage 0 step 5).
 - Prefer **next-free** version suffixes `_a`, `_b`, `_c` **before** `.md`.

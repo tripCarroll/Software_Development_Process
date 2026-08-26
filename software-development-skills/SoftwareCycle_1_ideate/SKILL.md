@@ -9,17 +9,32 @@ Use in **Cursor** (`.cursor/skills/` or `~/.cursor/skills/`) or **Claude** (proj
 
 ---
 
-You are acting as a senior product collaborator. Your job in this phase is to deeply understand what the user wants to build before producing the PRD artifact. Do not rush to draft. Do not make assumptions. The output of this phase is a Product Requirements Document (PRD) written to **`.docs/features/current/`** as soon as the refinement pass is done — **do not wait for user approval** before saving; the user reviews and edits the markdown on disk before **SoftwareCycle_2_plan** if needed.
+You are acting as a senior product collaborator. Your job in this phase is to deeply understand what the user wants to build before producing the PRD artifact. Do not rush to draft. Do not make assumptions. The output of this phase is a Product Requirements Document (PRD) written to the **dated feature folder** as soon as the refinement pass is done — **do not wait for user approval** before saving; the user reviews and edits the markdown on disk before **SoftwareCycle_2_plan** if needed.
 
 ---
 
-## Feature artifact root
+## Feature folder (resolve or create)
 
-Persist the PRD to the **active feature folder** (immediately after refinement; no approval gate):
+All cycle artifacts live in a **dated feature folder** under **`.docs/features/`**. **Never** create or use **`.docs/features/current/`**.
 
-**Path:** `[workspace-root]/.docs/features/current/1_ProductRequirementsDocument.md`
+**Path pattern:** `[workspace-root]/.docs/features/YYYY-MM-DD_SanitizedName/`
 
-If **`.docs/features/current/`** does not exist or does not resolve to a dated project folder under **`.docs/features/`**, bootstrap it before saving: ensure **`.docs/features/`** exists; set **`DATE`** to `YYYY-MM-DD` (prefer session “today”); derive **`SanitizedName`** from the feature (ask if unclear — allow letters, numbers, hyphen, underscore; spaces → `_`; strip or replace other characters; fallback `feature`); if **`.docs/features/DATE_SanitizedName`** already exists and you need a new distinct folder, append `_2`, `_3`, …; create that directory; from **`.docs/features/`**, run **`ln -sfn DATE_SanitizedName current`** so **`current`** is a relative symlink to the new folder.
+Before saving the PRD, resolve **`FEATURE_DIR`**:
+
+1. Ensure **`.docs/features/`** exists (create if missing).
+2. If the user or conversation names a folder under **`.docs/features/`** matching **`^\d{4}-\d{2}-\d{2}_.+`**, set **`FEATURE_DIR`** to it — stop.
+3. Else, list subdirectories matching **`^\d{4}-\d{2}-\d{2}_.+`**: if **exactly one** exists, use it; if **multiple** exist, prefer the most recently modified folder lacking **`0_Overview.md`**, or **ask the user** if ambiguous.
+4. If **no** folder exists, derive **`SanitizedName`** from the feature (ask if unclear), then create **`FEATURE_DIR`**:
+   - **`DATE`:** `YYYY-MM-DD` (prefer session **"today"**).
+   - **`SanitizedName`:** letters, numbers, hyphen, underscore; spaces → `_`; strip or replace other characters; fallback `feature`.
+   - If **`.docs/features/DATE_SanitizedName`** is taken, append `_2`, `_3`, … until unused.
+   - **`mkdir -p FEATURE_DIR`**. Do **not** create a `current` symlink.
+
+**Legacy:** If **`.docs/features/current`** is a symlink to a dated folder, use that folder as **`FEATURE_DIR`** for this session only.
+
+Persist the PRD to **`FEATURE_DIR`** (immediately after refinement; no approval gate):
+
+**Path:** `[workspace-root]/.docs/features/YYYY-MM-DD_SanitizedName/1_ProductRequirementsDocument.md` (use resolved **`FEATURE_DIR`**, not a literal placeholder path)
 
 **Versioning:** If `1_ProductRequirementsDocument.md` already exists, save as `1_ProductRequirementsDocument_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
 
@@ -126,13 +141,13 @@ After completing the pass, output the revised PRD in full. Then present your ref
 
 ### Stage 4 — Persist immediately (no approval gate)
 
-As soon as the refinement pass is complete, write the **final revised PRD** (the same content you showed after refinement — body only, not the `## What changed in refinement` section) to **`.docs/features/current/`** using the next free filename: `1_ProductRequirementsDocument.md`, or `1_ProductRequirementsDocument_a.md`, `_b`, … per the versioning rule above.
+As soon as the refinement pass is complete, write the **final revised PRD** (the same content you showed after refinement — body only, not the `## What changed in refinement` section) to **`FEATURE_DIR/`** using the next free filename: `1_ProductRequirementsDocument.md`, or `1_ProductRequirementsDocument_a.md`, `_b`, … per the versioning rule above.
 
 Do **not** wait for the user to reply "approved" or confirm anything before writing the file.
 
 After saving, output in plain prose (outside any PRD code block):
 
-- One line: path written (e.g. `PRD saved to .docs/features/current/1_ProductRequirementsDocument.md`).
+- One line: path written (e.g. `PRD saved to .docs/features/2026-08-20_button-refactor/1_ProductRequirementsDocument.md`).
 - One short paragraph: what to do next — e.g. edit that file if anything should change, then run **SoftwareCycle_2_plan** (e.g. `/SoftwareCycle_2_plan` in Cursor) when ready.
 
 Optional: if the session is chat-only and you cannot write files, say so and provide the full PRD in a single Markdown code block for manual save — still do not block on approval.
@@ -141,12 +156,12 @@ Optional: if the session is chat-only and you cannot write files, say so and pro
 
 ## Output format rules
 
-- **Primary artifact:** the file on disk under **`.docs/features/current/1_ProductRequirementsDocument*.md`** — write it in the same turn as refinement completes
+- **Primary artifact:** the file on disk under **`FEATURE_DIR/1_ProductRequirementsDocument*.md`** — write it in the same turn as refinement completes
 - In chat, you may show the PRD in a Markdown code block for visibility, or only confirm the path if the user prefers a minimal reply; never require approval before the file exists
 - Use `##` for section headers, `-` for bullets, no bold inside body text (in the PRD body)
 - No emojis, no filler phrases ("Great question!", "Certainly!")
 - Keep `## What changed in refinement` outside the saved PRD file (chat-only summary); the saved file is the PRD sections only
-- On disk, the PRD must use the **`1_ProductRequirementsDocument*.md`** naming convention under **`.docs/features/current/`** (not `PRD-[kebab].md`)
+- On disk, the PRD must use the **`1_ProductRequirementsDocument*.md`** naming convention under the **dated feature folder** (not `PRD-[kebab].md`)
 
 ---
 

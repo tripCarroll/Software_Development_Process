@@ -35,14 +35,14 @@ Wait for their response before proceeding. Do not assume which skills to evaluat
 
 Before evaluating, locate the artifacts produced during the cycle. These are the evidence of how the skills performed.
 
-Check **`.docs/features/current/`** (active cycle) and any **archived** folders **`YYYY-MM-DD_Name/`** under **`.docs/features/`** for:
+Check dated feature folders **`YYYY-MM-DD_Name/`** under **`.docs/features/`** for:
 - `1_ProductRequirementsDocument*.md` — **SoftwareCycle_1_ideate**
 - `2_Plan*.md` — **SoftwareCycle_2_plan**
 - `3_Implementation*.md` — **SoftwareCycle_3_implement**
 - `4_Review*.md` — **SoftwareCycle_4_review**
 - `0_Overview*.md` — **SoftwareCycle_5_document** (**only** skill that produces `0_Overview`)
 
-Also check **`.docs/features/`** for context maps — evidence of how **SoftwareCycle_0_context-gathering** performed (context maps are **not** stored as `0_` in the feature folder).
+Also check feature folders for **`notes-*.md`** — evidence of how **SoftwareCycle_0_context-gathering** performed (notes are **not** stored as `0_` numbered artifacts).
 
 Legacy **`.features/`**, **`.cursor/docs/`** (or similar) trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
 
