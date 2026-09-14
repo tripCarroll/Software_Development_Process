@@ -15,7 +15,7 @@ You are acting as a codebase analyst. Your job is to scan a focused area of the 
 
 This is not a summary for the user to read. It is working memory for the agent. Write it accordingly: precise, structured, and scannable. Every statement should be something a downstream skill could act on.
 
-**Numbered feature artifacts:** Do **not** save context maps as `0_Overview` or any `0_` file. **`0_Overview.md` is produced only by the SoftwareCycle_5_document skill.** Save context maps as `notes-[kebab-area-name].md` in the **active feature folder** (see Stage 0).
+**Numbered feature artifacts:** Save context maps as `0_notes-[kebab-area-name].md` in the **active feature folder** (see Stage 0). Do **not** create `0_Overview.md` here — **`0_Overview.md` is produced only by the SoftwareCycle_5_document skill.**
 
 ---
 
@@ -36,7 +36,7 @@ If no area is specified, ask before scanning: "What area should I focus on? A pa
 
 Resolve **`FEATURE_DIR`** before scanning. Context maps are saved **inside the dated feature folder** — never under **`.docs/features/current/`**.
 
-**Save path:** `[workspace-root]/.docs/features/YYYY-MM-DD_SanitizedName/notes-[kebab-area-name].md`
+**Save path:** `[workspace-root]/.docs/features/YYYY-MM-DD_SanitizedName/0_notes-[kebab-area-name].md`
 
 1. Ensure **`.docs/features/`** exists (create if missing).
 2. If the user or conversation names a folder under **`.docs/features/`** matching **`^\d{4}-\d{2}-\d{2}_.+`**, set **`FEATURE_DIR`** to it — **stop Stage 0** and continue to Stage 1.
@@ -173,7 +173,7 @@ The following context is now active for this session:
 Save the context map to **`FEATURE_DIR`** (Stage 0 must be complete):
 
 ```
-.docs/features/YYYY-MM-DD_SanitizedName/notes-[kebab-area-name].md
+.docs/features/YYYY-MM-DD_SanitizedName/0_notes-[kebab-area-name].md
 ```
 
 **If the file already exists:** read it first, then **append** the new context map — do not overwrite prior content and do not create `_a`, `_b`, or other variant filenames. Separate scans with a horizontal rule (`---`), then the full Stage 3 map for the new scan (each scan gets its own `# Context map: [Area name]` heading and **Scanned** timestamp).
@@ -184,7 +184,7 @@ Save the context map to **`FEATURE_DIR`** (Stage 0 must be complete):
 
 After saving, output a short confirmation in plain prose — not the full map again. Example:
 
-> Context appended to `.docs/features/2026-08-20_button-refactor/notes-button.md`.  
+> Context appended to `.docs/features/2026-08-20_button-refactor/0_notes-button.md`.  
 > Active context: Lit + TypeScript Web Components project. Button component follows a 4-file pattern with strict TypeScript and CSS custom property tokens. Shadow DOM encapsulation is a known constraint. Ready for **SoftwareCycle_1_ideate** or **SoftwareCycle_2_plan**.
 
 The full map is on disk. The confirmation is what loads into context — keep it dense and usable.
@@ -198,4 +198,4 @@ The full map is on disk. The confirmation is what loads into context — keep it
 - If a pattern is inconsistent, say so explicitly. Downstream skills need to know whether to follow the pattern or flag it.
 - Ask the user only when required: **feature name** (Stage 0, if no active folder) or **scan scope** (Invocation, if no area given). Do not ask other questions during the scan unless scope is genuinely ambiguous.
 - **Persist without approval:** write the context map file as soon as it is ready; do not ask the user to confirm the map before saving (feature naming in Stage 0 is separate).
-- Always re-scan the codebase fresh — do not skip scanning because prior notes exist on disk; append the new scan to the existing **`notes-[kebab-area-name].md`** file when present.
+- Always re-scan the codebase fresh — do not skip scanning because prior notes exist on disk; append the new scan to the existing **`0_notes-[kebab-area-name].md`** file when present.

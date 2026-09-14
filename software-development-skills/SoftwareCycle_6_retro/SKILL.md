@@ -42,7 +42,7 @@ Check dated feature folders **`YYYY-MM-DD_Name/`** under **`.docs/features/`** f
 - `4_Review*.md` — **SoftwareCycle_4_review**
 - `0_Overview*.md` — **SoftwareCycle_5_document** (**only** skill that produces `0_Overview`)
 
-Also check feature folders for **`notes-*.md`** — evidence of how **SoftwareCycle_0_context-gathering** performed (notes are **not** stored as `0_` numbered artifacts).
+Also check feature folders for **`0_notes-*.md`** — evidence of how **SoftwareCycle_0_context-gathering** performed.
 
 Legacy **`.features/`**, **`.cursor/docs/`** (or similar) trees may still exist from older cycles; use them only as fallback if the feature folder is empty.
 

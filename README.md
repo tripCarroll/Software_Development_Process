@@ -43,7 +43,7 @@ Typical order:
 
 | Command | Skill | Role |
 |--------|--------|------|
-| `/context-gathering [area]` | **context-gathering** | Creates a dated feature folder if needed, scans a path or domain, and writes a structured **context map** to **`.docs/features/YYYY-MM-DD_Name/notes-[area].md`** (appends on repeat scans), plus a short session summary so later steps match real patterns and config. |
+| `/context-gathering [area]` | **context-gathering** | Creates a dated feature folder if needed, scans a path or domain, and writes a structured **context map** to **`.docs/features/YYYY-MM-DD_Name/0_notes-[area].md`** (appends on repeat scans), plus a short session summary so later steps match real patterns and config. |
 | `/ideate` | **ideate** | Structured **interview** (small batches of questions), then a full **PRD** and refinement pass; explicit **sign-off** before planning. Saves `1_ProductRequirementsDocument.md` in the dated feature folder. |
 | `/plan` | **plan** | Reads the PRD (and context you’ve loaded); produces an **adaptive** phased plan (no boilerplate sections); refinement pass; **sign-off** before `/implement`. Saves `2_Plan.md` in the dated feature folder. |
 | `/implement` | **implement** | Requires a signed-off plan; executes **phase → task** order; **tests with each task**; stops on real ambiguity; saves `3_Implementation.md` in the dated feature folder. No scope improvisation or drive-by refactors. |
@@ -58,8 +58,8 @@ Typical order:
 
 | Location | Contents |
 |----------|----------|
-| **`.docs/features/YYYY-MM-DD_Name/notes-[area].md`** | Context maps from `/context-gathering` (appended on repeat scans). |
-| **`.docs/features/YYYY-MM-DD_Name/`** | All cycle artifacts: `notes-*.md`, `1_ProductRequirementsDocument.md`, `2_Plan.md`, `3_Implementation.md`, `4_Review.md`, and (on `/document`) `0_Overview.md`. Created automatically when a skill runs and no folder exists. |
+| **`.docs/features/YYYY-MM-DD_Name/0_notes-[area].md`** | Context maps from `/context-gathering` (appended on repeat scans). |
+| **`.docs/features/YYYY-MM-DD_Name/`** | All cycle artifacts: `0_notes-*.md`, `1_ProductRequirementsDocument.md`, `2_Plan.md`, `3_Implementation.md`, `4_Review.md`, and (on `/document`) `0_Overview.md`. Created automatically when a skill runs and no folder exists. |
 | **`.docs/features/README.md`** | Index of feature cycles; maintained by `/document`. |
 
 Exact filenames are defined inside each skill; keep naming consistent so `/plan`, `/implement`, `/document`, and `/retro` can find evidence of the cycle.
