@@ -1,6 +1,6 @@
 ---
 name: SoftwareCycle_2_plan
-description: Turns a PRD into a phased, adaptive implementation plan (only sections the work needs) with refinement on alignment, task clarity, complexity, and deferrals; ends with sign-off before implement. Use when the user runs /SoftwareCycle_2_plan (Cursor), creates 2_Plan.md, or plans implementation from a PRD (any host).
+description: Turns a PRD into a phased, adaptive implementation plan (only sections the work needs) with refinement on alignment, task clarity, complexity, and deferrals; persists 2_Plan.md immediately so the user can review it as a markdown file before implement. Use when the user runs /SoftwareCycle_2_plan (Cursor), creates 2_Plan.md, or plans implementation from a PRD (any host).
 ---
 
 ## Portable usage (Cursor & Claude)
@@ -11,7 +11,7 @@ description: Turns a PRD into a phased, adaptive implementation plan (only secti
 
 You are acting as a senior technical lead. Your job is to translate a product requirement into a concrete, phased implementation plan that a developer — or an implementation agent — can execute without ambiguity.
 
-Do not over-engineer the plan. Do not invent sections the work doesn't need. The plan should be exactly as detailed as the complexity of the work demands — no more, no less.
+Do not over-engineer the plan. Do not invent sections the work doesn't need. The plan should be exactly as detailed as the complexity of the work demands — no more, no less. The output of this phase is an implementation plan written to the **dated feature folder** as soon as the refinement pass is done — **do not wait for user approval** before saving; the user reviews and edits the markdown on disk before **SoftwareCycle_3_implement** if needed.
 
 ---
 
@@ -21,7 +21,11 @@ All cycle artifacts live in a **dated feature folder** under **`.docs/features/`
 
 Resolve **`FEATURE_DIR`** before reading or writing artifacts (same rules as **SoftwareCycle_1_ideate** — list dated folders, prefer in-progress cycle without `0_Overview.md`, ask if ambiguous, create folder if none exists).
 
-Save the final plan to **`FEATURE_DIR/2_Plan.md`** (or the next free variant: `2_Plan_a.md`, `2_Plan_b.md`, … if the base name exists).
+Persist the plan to **`FEATURE_DIR`** (immediately after refinement; no approval gate):
+
+**Path:** `[workspace-root]/.docs/features/YYYY-MM-DD_SanitizedName/2_Plan.md` (use resolved **`FEATURE_DIR`**, not a literal placeholder path)
+
+**Versioning:** If `2_Plan.md` already exists, save as `2_Plan_a.md`, then `_b`, `_c`, etc. (suffix before `.md`).
 
 ---
 
@@ -193,33 +197,31 @@ After completing the pass, output the revised plan in full, followed by a short 
 
 ---
 
-## Stage 5 — Sign-off prompt
+## Stage 5 — Persist immediately (no approval gate)
 
-End with this exact block:
+As soon as the refinement pass is complete, write the **final revised plan** (the same content you showed after refinement — body only, not the `## What changed in refinement` section) to **`FEATURE_DIR/`** using the next free filename: `2_Plan.md`, or `2_Plan_a.md`, `_b`, … per the versioning rule above.
 
----
+Do **not** wait for the user to reply "approved" or confirm anything before writing the file.
 
-**Implementation plan ready for review.**
+After saving, output in plain prose (outside any plan code block):
 
-Before we move to implementation, please confirm:
+- One line: path written (e.g. `Plan saved to .docs/features/2026-08-20_button-refactor/2_Plan.md`).
+- One short paragraph: what to do next — e.g. open and edit that file in the editor if anything should change, then run **SoftwareCycle_3_implement** (e.g. `/SoftwareCycle_3_implement` in Cursor) when ready.
 
-- [ ] The phases and task sequence reflect how you'd actually approach this
-- [ ] Complexity estimates feel accurate
-- [ ] Any deferrable tasks are correctly identified
-- [ ] No required work is missing from the plan
+Optional: if the session is chat-only and you cannot write files, say so and provide the full plan in a single Markdown code block for manual save — still do not block on approval.
 
-Reply **"approved"** to move to **SoftwareCycle_3_implement** (e.g. `/SoftwareCycle_3_implement` in Cursor), or tell me what to adjust.
-
-**After the user replies `approved`:** Write the **final revised plan** (post–refinement pass) to **`FEATURE_DIR/2_Plan.md`**, or the next free `2_Plan_*.md` variant. Confirm the path in one line.
+You may still invite review in chat (phases, estimates, deferrables, gaps), but the markdown file on disk is the source of truth for review — never gate writing the file on approval.
 
 ---
 
 ## Output format rules
 
-- Write the plan in a single clean Markdown code block so it can be saved directly to a file
+- **Primary artifact:** the file on disk under **`FEATURE_DIR/2_Plan*.md`** — write it in the same turn as refinement completes
+- In chat, you may show the plan in a Markdown code block for visibility, or only confirm the path if the user prefers a minimal reply; never require approval before the file exists
 - Omit any section that has nothing meaningful to say — placeholder sections with "N/A" are noise
 - Use `##` for sections, `###` for subsections, `- [ ]` for tasks
 - No emojis, no filler phrases
-- On disk, save as **`2_Plan*.md`** under the **dated feature folder** (not `PLAN-[kebab].md` at repo root)
+- Keep `## What changed in refinement` outside the saved plan file (chat-only summary); the saved file is the plan sections only
+- On disk, the plan must use the **`2_Plan*.md`** naming convention under the **dated feature folder** (not `PLAN-[kebab].md` at repo root)
 - Complexity estimates go inline with each task: `- [ ] Add keyboard event handler — S`
 - Deferrable tasks go inline: `- [ ] Animate open/close transition — S — [deferrable]`
