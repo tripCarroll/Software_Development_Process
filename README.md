@@ -1,71 +1,45 @@
-![Process Breakdown](imgs/software_build_phases.svg)
+# Software development process
 
-# Software development process skills
+Agentic skills for your software development projects.
 
-This repository holds **agent skills** (same `SKILL.md` format) for a full build cycle: grounding work in the codebase, shaping requirements, planning, implementing, reviewing, archiving, and improving the process itself. They are written to work in **Cursor** and **Claude** (see each skill’s **Portable usage** section). The goal is more reliable, consistent, and higher-quality output by giving the agent explicit stages, artifacts, and handoffs.
+## How to use this thing
 
-## Using these skills in Cursor
+These skills are designed to help you think intentionally about the software that you are building (several of these skills are pulled directly or heavily modified from [Matt Pocock's agentic skills](https://github.com/mattpocock/skills)).
 
-Skills are folders that contain a main instruction file. Cursor expects:
+## Skills: Product planning
 
-- **Personal:** `~/.cursor/skills/<skill-name>/SKILL.md`
-- **Project:** `.cursor/skills/<skill-name>/SKILL.md`
+`.docs/` is your product record, contains your ADRs, and is where your development cycles will be stored. An **Initiative** is the product; a **Project** is one area of it.
 
-Each skill folder’s entry file is **`SKILL.md`** (Cursor’s required name). Symlink or copy each folder into **`~/.cursor/skills/<skill-name>/`** or **`.cursor/skills/<skill-name>/`** in a project. A **symbolic link** to this repo’s `software-development-skills/<name>/` folder is more reliable than a macOS Finder alias.
+| Skill | When |
+|-------|------|
+| [`/repo-setup`](skills/repo-setup/SKILL.md) | The repo needs a `.docs` layout, or Linear should be pulled into it |
+| [`/draft-initiative`](skills/draft-initiative/SKILL.md) | The product itself is being defined |
+| [`/draft-project`](skills/draft-project/SKILL.md) | One area of the product is being defined |
 
-Invoke skills by asking the agent in natural language (e.g. “run `/plan` for this PRD”) or whatever slash-command style you use in your setup. Each skill’s **`description`** in frontmatter includes slash-style trigger hints (e.g. `/ideate`) so the agent can match intent.
+## Skills: Dev cycle
 
-## Using these skills in Claude
+A dev cycle is a single slice of work. Artifacts from a cycle will be saved until the cycle is closed out in the /devcycle_5_document skill. Once a cycle is closed out, it's documents, linked to it's parent project, and it's cycle folder is removed. 
 
-- **Claude.ai:** Paste a skill’s body into **Project instructions**, or upload `SKILL.md` and tell the model to follow it for that workflow. Slash commands are optional; natural language (“run the plan step”, “archive this cycle”) matches the same stages.
-- **Claude Code:** Copy or symlink each folder under **`.claude/skills/<skill-name>/`** so **`SKILL.md`** lives at `.claude/skills/<skill-name>/SKILL.md` (same layout as Cursor). Enable the skill in your Claude Code settings if your version requires it.
+| Skill | When |
+|-------|------|
+| [`/devcycle_0_context`](skills/devcycle_0_context/SKILL.md) | Mapping one area of the codebase |
+| [`/devcycle_1_ideate`](skills/devcycle_1_ideate/SKILL.md) | A rough idea needs a PRD |
+| [`/devcycle_2_plan`](skills/devcycle_2_plan/SKILL.md) | The work needs a phased implementation plan |
+| [`/devcycle_3_implement`](skills/devcycle_3_implement/SKILL.md) | A plan is ready to execute |
+| [`/devcycle_4_review`](skills/devcycle_4_review/SKILL.md) | An implementation needs a cold read, should be done in a fresh chat |
+| [`/devcycle_5_document`](skills/devcycle_5_document/SKILL.md) | A finished cycle should become its summary and a changelog entry |
 
-Behavior and artifact paths (`.docs/features/`, numbered files) are identical across hosts.
+## Skills: Misc
 
----
+Use these skills to learn, prove ideas, and get clarification.
 
-## Recommended cycle
-
-Typical order:
-
-1. **`/context-gathering`** (optional but useful) — Map the relevant area of the codebase; creates a dated feature folder if none exists.
-2. **`/ideate`** — Interview, then produce a **PRD** (creates **`.docs/features/YYYY-MM-DD_Name/`** if needed before saving).
-3. **`/plan`** — Turn the PRD into a phased **implementation plan**; sign-off before build.
-4. **`/implement`** — Execute the plan task-by-task, tests alongside work; **implementation summary**.
-5. **`/teach`** (optional) — After implementation, get a structured explanation of what was built and why.
-6. **`/review`** — Best in a **fresh chat**: cold read of code against PRD, plan, and summary; structured findings.
-7. **`/document`** — Write **`0_Overview.md`** in the feature folder and update the **`.docs/features/README.md`** index.
-8. **`/retro`** (after a full cycle) — Meta review: how well the *skills* worked; proposed edits to skill files (you apply them).
-
----
-
-## Skills in this repo
-
-| Command | Skill | Role |
-|--------|--------|------|
-| `/context-gathering [area]` | **context-gathering** | Creates a dated feature folder if needed, scans a path or domain, and writes a structured **context map** to **`.docs/features/YYYY-MM-DD_Name/0_notes-[area].md`** (appends on repeat scans), plus a short session summary so later steps match real patterns and config. |
-| `/ideate` | **ideate** | Structured **interview** (small batches of questions), then a full **PRD** and refinement pass; explicit **sign-off** before planning. Saves `1_ProductRequirementsDocument.md` in the dated feature folder. |
-| `/plan` | **plan** | Reads the PRD (and context you’ve loaded); produces an **adaptive** phased plan (no boilerplate sections); refinement pass; **sign-off** before `/implement`. Saves `2_Plan.md` in the dated feature folder. |
-| `/implement` | **implement** | Requires a signed-off plan; executes **phase → task** order; **tests with each task**; stops on real ambiguity; saves `3_Implementation.md` in the dated feature folder. No scope improvisation or drive-by refactors. |
-| `/teach` | **teach** | **Code explainer**: after an implementation, walks through what was built, why, and key concepts — pitched at someone learning to code, not just using it. |
-| `/review` | **review** | **Second-agent, cold** review: PRD/plan/summary + code; checklist (alignment, correctness, patterns, edge cases, tests, security, performance, a11y, etc.); severity-ranked issues; saves `4_Review.md` in the dated feature folder. |
-| `/document` | **document** | **Archivist**: ensures artifacts 1–4 exist in the feature folder; writes **`0_Overview.md`**; maintains a **`.docs/features/README.md`** index. |
-| `/retro` | **retro** | **Process audit** (not product quality): which skills felt wrong, evidence from artifacts + your experience; per-skill assessment; **plain-English change list** — does **not** edit skill files without your approval. |
-
----
-
-## Where artifacts land
-
-| Location | Contents |
-|----------|----------|
-| **`.docs/features/YYYY-MM-DD_Name/0_notes-[area].md`** | Context maps from `/context-gathering` (appended on repeat scans). |
-| **`.docs/features/YYYY-MM-DD_Name/`** | All cycle artifacts: `0_notes-*.md`, `1_ProductRequirementsDocument.md`, `2_Plan.md`, `3_Implementation.md`, `4_Review.md`, and (on `/document`) `0_Overview.md`. Created automatically when a skill runs and no folder exists. |
-| **`.docs/features/README.md`** | Index of feature cycles; maintained by `/document`. |
-
-Exact filenames are defined inside each skill; keep naming consistent so `/plan`, `/implement`, `/document`, and `/retro` can find evidence of the cycle.
-
----
-
-## Status
-
-These skills are written as a **coherent prototype pipeline**. `/retro` is explicitly there to tighten them based on real use. Adjust `SKILL.md` files as you learn what works for your team and stack.
+| Skill | When |
+|-------|------|
+| [`/domain-modeling`](skills/domain-modeling/SKILL.md) | A domain term is unresolved, `CONTEXT.md` is being edited, or an ADR is being recorded |
+| [`/grill-me`](skills/grill-me/SKILL.md) | A plan, decision, or idea needs a stress test |
+| [`/grill-with-docs`](skills/grill-with-docs/SKILL.md) | That stress test should also write glossary terms and ADRs |
+| [`/wayfinder`](skills/wayfinder/SKILL.md) | The work is bigger than one session, and the way to the destination is still open |
+| [`/handoff`](skills/handoff/SKILL.md) | This conversation should be compacted for another agent |
+| [`/teach`](skills/teach/SKILL.md) | The user wants to learn something. |
+| [`/wait-what`](skills/wait-what/SKILL.md) | The last message did not land |
+| [`/writing-for-agents`](skills/writing-for-agents/SKILL.md) | A skill, `AGENTS.md`, or `CLAUDE.md` is being written or edited |
