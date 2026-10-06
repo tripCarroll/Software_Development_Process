@@ -4,7 +4,7 @@ Agentic skills for your software development projects.
 
 ## How to use this thing
 
-These skills are designed to help you think intentionally about the software that you are building (several of these skills are pulled directly or heavily modified from [Matt Pocock's agentic skills](https://github.com/mattpocock/skills)).
+These skills are designed to help you think intentionally about the software that you are building (several of these skills are pulled directly or heavily modified from [Matt Pocock's agentic skills](https://github.com/mattpocock/skills)). [`/humanizer`](skills/humanizer/SKILL.md) is copied from [blader/humanizer](https://github.com/blader/humanizer).
 
 ## Skills: Product planning
 
@@ -43,3 +43,4 @@ Use these skills to learn, prove ideas, and get clarification.
 | [`/teach`](skills/teach/SKILL.md) | The user wants to learn something. |
 | [`/wait-what`](skills/wait-what/SKILL.md) | The last message did not land |
 | [`/writing-for-agents`](skills/writing-for-agents/SKILL.md) | A skill, `AGENTS.md`, or `CLAUDE.md` is being written or edited |
+| [`/humanizer`](skills/humanizer/SKILL.md) | Prose needs the AI tells taken out without changing what it says |
